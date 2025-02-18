@@ -3,7 +3,7 @@
   "theme": "linden",
   "name": "jinba",
   "colors": {
-    "primary": "#8572C0",
+  "primary": "#8572C0",
     "light": "#A58CE0",
     "dark": "#5A4780"
   },
@@ -16,43 +16,38 @@
           {
             "group": "Get Started",
             "pages": [
-              "introduction",
-              "intro/quickstart"
+              "introduction", 
+              "pages/intro/quickstart"
             ]
           },
           {
             "group": "Search and use template",
             "pages": [
-              "templates/search",
-              "templates/fork_and_setting"
+              "pages/templates/search",
+              "pages/templates/fork_and_setting"
             ]
           },
           {
             "group": "How to make your workflow",
             "pages": [
-              "basics/chat",
-              "basics/drag_and_drop",
-              "basics/manifest"
+              "pages/basics/chat",
+              "pages/basics/drag_and_drop",
+              "pages/basics/manifest"
             ]
           },
           {
             "group": "Modules and Connector",
             "pages": [
-              "modules/gmail",
-              "module/spread_sheet",
-              "module/google_docs",
-              "module/firecrawl"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              {
+                "group": "Google Application",
+                "pages": [
+                  "pages/modules/google-application/gmail",
+                  "pages/modules/google-application/spread-sheet", 
+                  "pages/modules/google-application/google-docs"
+                ]
+              },
+              "pages/modules/firecrawl",
+              "pages/modules/template-module-explanation"
             ]
           }
         ]
