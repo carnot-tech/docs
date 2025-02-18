@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "linden",
+  "name": "jinba",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+  "primary": "#8572C0",
+    "light": "#A58CE0",
+    "dark": "#5A4780"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -16,20 +16,38 @@
           {
             "group": "Get Started",
             "pages": [
-              "introduction",
-              "quickstart",
-              "development"
+              "introduction", 
+              "pages/intro/quickstart"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Search and use template",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "pages/templates/search",
+              "pages/templates/fork_and_setting"
+            ]
+          },
+          {
+            "group": "How to make your workflow",
+            "pages": [
+              "pages/basics/chat",
+              "pages/basics/drag_and_drop",
+              "pages/basics/manifest"
+            ]
+          },
+          {
+            "group": "Modules and Connector",
+            "pages": [
+              {
+                "group": "Google Application",
+                "pages": [
+                  "pages/modules/google-application/gmail",
+                  "pages/modules/google-application/spread-sheet", 
+                  "pages/modules/google-application/google-docs"
+                ]
+              },
+              "pages/modules/firecrawl",
+              "pages/modules/template-module-explanation"
             ]
           }
         ]
@@ -57,38 +75,28 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "anchor": "Company website",
+          "href": "https://carnot.ai/",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/jinba_logo.svg",
+    "dark": "/logo/jinba_logo.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:contact@carnot.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Go to jinba",
+      "href": "https://app.jinba.io/"
     }
   },
   "footer": {
