@@ -1,0 +1,86 @@
+---
+title: "Manifest"
+description: "Learn how to structure and write a manifest."
+---
+
+
+# Writing a Manifest for Your Site
+
+A manifest in your site defines the execution flow of tools and scripts, specifying dependencies and data transformations. This document outlines how to structure and write a manifest following the format used in your system.
+
+## Structure of the Manifest
+
+Each entry in the manifest represents a step in the execution pipeline. These steps include:
+
+- **id**: A unique identifier for the step.
+- **name**: A readable name for reference.
+- **tool**: The tool or environment where the step executes.
+- **config**: Configuration settings for the tool (can be empty `[]`).
+- **input**: A list of input values required for the step.
+- **needs** (optional): Dependencies on previous steps.
+
+## Example Manifest
+
+Below is an example manifest that processes numerical data through multiple steps:
+
+``` yaml
+{- id: input_data
+  name: input_data
+  tool: INPUT_JSON
+  config: []
+  input:
+    - name: value
+      value: "[1, 2, 3, 4, 5]"
+
+- id: branch_a1
+  name: branch_a1
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        data = {{steps.input_data.result}}
+        result = sum([x for x in data if x % 2 == 0])
+        result  # even numbers sum
+  needs:
+    - input_data
+
+- id: branch_a2
+  name: branch_a2
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        result = {{steps.branch_a1.result.text}} * 2
+        result  # double the sum
+  needs:
+    - branch_a1}
+```
+
+## Breakdown of Each Step
+
+### 1. **Input Data (`input_data`)**
+   - Uses the `INPUT_JSON` tool to define an array of numbers `[1, 2, 3, 4, 5]`.
+
+### 2. **Branch A1 (`branch_a1`)**
+   - Uses `PYTHON_SANDBOX` to compute the sum of even numbers from `input_data`.
+   - Depends on `input_data`.
+
+### 3. **Branch A2 (`branch_a2`)**
+   - Doubles the result from `branch_a1`.
+   - Depends on `branch_a1`.
+
+### 4. **Branch B1 (`branch_b1`)**
+   - Computes the sum of odd numbers from `input_data`.
+   - Depends on `input_data`.
+
+## Writing Your Own Manifest
+
+To create a manifest:
+1. **Define an `id` and `name`** for each step.
+2. **Choose the appropriate `tool`**, such as `INPUT_JSON` or `PYTHON_SANDBOX`.
+3. **Specify input values** under `input`.
+4. **List dependencies** using `needs` to ensure correct execution order.
+
+By following this structure, you can build a clear, modular workflow for processing data efficiently.

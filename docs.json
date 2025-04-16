@@ -3,70 +3,261 @@
   "theme": "linden",
   "name": "jinba",
   "colors": {
-  "primary": "#8572C0",
+    "primary": "#8572C0",
     "light": "#A58CE0",
     "dark": "#5A4780"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Guides",
+        "language": "en",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Getting Started",
             "pages": [
-              "introduction", 
-              "pages/intro/quickstart"
-            ]
-          },
-          {
-            "group": "Search and use template",
-            "pages": [
-              "pages/templates/search",
-              "pages/templates/fork_and_setting"
+              "en/introduction",
+              "en/pages/intro/quickstart"
             ]
           },
           {
             "group": "How to make your workflow",
             "pages": [
-              "pages/basics/chat",
-              "pages/basics/drag_and_drop",
-              "pages/basics/manifest"
+              "en/pages/basics/chat",
+              "en/pages/basics/drag_and_drop",
+              "en/pages/basics/manifest"
             ]
           },
           {
-            "group": "Modules and Connector",
+            "group": "Tools",
             "pages": [
               {
-                "group": "Google Application",
+                "group": "Validation & Conversion",
                 "pages": [
-                  "pages/modules/google-application/gmail",
-                  "pages/modules/google-application/spread-sheet", 
-                  "pages/modules/google-application/google-docs"
+                  "en/pages/tools/validation/output_json_with_validation",
+                  "en/pages/tools/validation/input_json",
+                  "en/pages/tools/validation/input_json_with_validation",
+                  "en/pages/tools/validation/input_text",
+                  "en/pages/tools/validation/output_text",
+                  "en/pages/tools/validation/input_csv_file",
+                  "en/pages/tools/validation/markitdown_convert"
                 ]
               },
-              "pages/modules/firecrawl",
-              "pages/modules/template-module-explanation"
+              {
+                "group": "Email",
+                "pages": [
+                  "en/pages/tools/email/gmail_list_messages",
+                  "en/pages/tools/email/gmail_get_message",
+                  "en/pages/tools/email/gmail_send_message"
+                ]
+              },
+              {
+                "group": "Notion",
+                "pages": [
+                  "en/pages/tools/notion/notion_retrieve_database",
+                  "en/pages/tools/notion/notion_create_database_item",
+                  "en/pages/tools/notion/notion_create_page",
+                  "en/pages/tools/notion/notion_retrieve_a_page"
+                ]
+              },
+              {
+                "group": "GitHub",
+                "pages": [
+                  "en/pages/tools/github/github_create_an_issue",
+                  "en/pages/tools/github/github_list_repository_issues"
+                ]
+              },
+              {
+                "group": "Communication",
+                "pages": [
+                  "en/pages/tools/communication/input_slack_event",
+                  "en/pages/tools/communication/slack_post_message",
+                  "en/pages/tools/communication/slack_get_conversation_replies",
+                  "en/pages/tools/communication/discord_send_message",
+                  "en/pages/tools/communication/discord_add_reaction",
+                  "en/pages/tools/communication/discord_get_channel_messages",
+                  "en/pages/tools/communication/discord_get_user_info",
+                  "en/pages/tools/communication/line_get_profile",
+                  "en/pages/tools/communication/line_send_message"
+                ]
+              },
+              {
+                "group": "Google",
+                "pages": [
+                  "en/pages/tools/google/google_drive_get_file",
+                  "en/pages/tools/google/google_sheets_get_sheet",
+                  "en/pages/tools/google/google_sheets_edit_sheet",
+                  "en/pages/tools/google/google_calendar_find_event",
+                  "en/pages/tools/google/google_calendar_create_event"
+                ]
+              },
+              {
+                "group": "AI & LLM",
+                "pages": [
+                  "en/pages/tools/ai/gemini_invoke",
+                  "en/pages/tools/ai/gemini_invoke_with_image",
+                  "en/pages/tools/ai/openai_invoke",
+                  "en/pages/tools/ai/jinba_flow_run"
+                ]
+              },
+              {
+                "group": "Sandbox & Scripting",
+                "pages": [
+                  "en/pages/tools/sandbox/python_sandbox_run"
+                ]
+              },
+              {
+                "group": "Search & Data Retrieval",
+                "pages": [
+                  "en/pages/tools/search/serpapi_search",
+                  "en/pages/tools/search/pokeapi_get_pokemon",
+                  "en/pages/tools/search/pokeapi_get_type",
+                  "en/pages/tools/search/youtube_get_transcript",
+                  "en/pages/tools/search/arxiv_invoke_agent",
+                  "en/pages/tools/search/exaai_search",
+                  "en/pages/tools/search/teradata_run_query"
+                ]
+              },
+              {
+                "group": "Files",
+                "pages": [
+                  "en/pages/tools/files/input_pdf_file",
+                  "en/pages/tools/files/input_image_file"
+                ]
+              },
+              {
+                "group": "CMS & Web Tools",
+                "pages": [
+                  "en/pages/tools/cms/wordpress_post_article",
+                  "en/pages/tools/cms/firecrawl_scrape"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "language": "ja",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "はじめに",
             "pages": [
-              "api-reference/introduction"
+              "ja/introduction",
+              "ja/pages/intro/quickstart"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "ワークフローの作り方",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
+              "ja/pages/basics/chat",
+              "ja/pages/basics/drag_and_drop",
+              "ja/pages/basics/manifest"
+            ]
+          },
+          {
+            "group": "ツール",
+            "pages": [
+              {
+                "group": "検証と変換",
+                "pages": [
+                  "ja/pages/tools/validation/output_json_with_validation",
+                  "ja/pages/tools/validation/input_json",
+                  "ja/pages/tools/validation/input_json_with_validation",
+                  "ja/pages/tools/validation/input_text",
+                  "ja/pages/tools/validation/output_text",
+                  "ja/pages/tools/validation/input_csv_file",
+                  "ja/pages/tools/validation/markitdown_convert"
+                ]
+              },
+              {
+                "group": "メール",
+                "pages": [
+                  "ja/pages/tools/email/gmail_list_messages",
+                  "ja/pages/tools/email/gmail_get_message",
+                  "ja/pages/tools/email/gmail_send_message"
+                ]
+              },
+              {
+                "group": "Notion",
+                "pages": [
+                  "ja/pages/tools/notion/notion_retrieve_database",
+                  "ja/pages/tools/notion/notion_create_database_item",
+                  "ja/pages/tools/notion/notion_create_page",
+                  "ja/pages/tools/notion/notion_retrieve_a_page"
+                ]
+              },
+              {
+                "group": "GitHub",
+                "pages": [
+                  "ja/pages/tools/github/github_create_an_issue",
+                  "ja/pages/tools/github/github_list_repository_issues"
+                ]
+              },
+              {
+                "group": "コミュニケーション",
+                "pages": [
+                  "ja/pages/tools/communication/input_slack_event",
+                  "ja/pages/tools/communication/slack_post_message",
+                  "ja/pages/tools/communication/slack_get_conversation_replies",
+                  "ja/pages/tools/communication/discord_send_message",
+                  "ja/pages/tools/communication/discord_add_reaction",
+                  "ja/pages/tools/communication/discord_get_channel_messages",
+                  "ja/pages/tools/communication/discord_get_user_info",
+                  "ja/pages/tools/communication/line_get_profile",
+                  "ja/pages/tools/communication/line_send_message"
+                ]
+              },
+              {
+                "group": "Google",
+                "pages": [
+                  "ja/pages/tools/google/google_drive_get_file",
+                  "ja/pages/tools/google/google_sheets_get_sheet",
+                  "ja/pages/tools/google/google_sheets_edit_sheet",
+                  "ja/pages/tools/google/google_calendar_find_event",
+                  "ja/pages/tools/google/google_calendar_create_event"
+                ]
+              },
+              {
+                "group": "AIとLLM",
+                "pages": [
+                  "ja/pages/tools/ai/gemini_invoke",
+                  "ja/pages/tools/ai/gemini_invoke_with_image",
+                  "ja/pages/tools/ai/openai_invoke",
+                  "ja/pages/tools/ai/jinba_flow_run"
+                ]
+              },
+              {
+                "group": "サンドボックス＆スクリプト",
+                "pages": [
+                  "ja/pages/tools/sandbox/python_sandbox_run"
+                ]
+              },
+              {
+                "group": "検索とデータ取得",
+                "pages": [
+                  "ja/pages/tools/search/serpapi_search",
+                  "ja/pages/tools/search/pokeapi_get_pokemon",
+                  "ja/pages/tools/search/pokeapi_get_type",
+                  "ja/pages/tools/search/youtube_get_transcript",
+                  "ja/pages/tools/search/arxiv_invoke_agent",
+                  "ja/pages/tools/search/exaai_search",
+                  "ja/pages/tools/search/teradata_run_query"
+                ]
+              },
+              {
+                "group": "ファイル",
+                "pages": [
+                  "ja/pages/tools/files/input_pdf_file",
+                  "ja/pages/tools/files/input_image_file"
+                ]
+              },
+              {
+                "group": "CMS＆Webツール",
+                "pages": [
+                  "ja/pages/tools/cms/wordpress_post_article",
+                  "ja/pages/tools/cms/firecrawl_scrape"
+                ]
+              }
             ]
           }
         ]
