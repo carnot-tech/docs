@@ -1,0 +1,45 @@
+---
+title: 'X'
+description: 'X API を使ってポストを投稿する'
+icon: 'x-twitter'
+---
+
+## 概要
+X ツールを使用すると、X API を介して投稿（ポスト）を行うことができます。テキスト投稿や画像付きの投稿に対応しています。
+
+## 主な機能
+- `X_POST`
+  - 自分の X アカウントにポストを投稿
+  - テキストと画像のアップロードに対応
+
+## 認証
+
+X API を使用するには、[X Developer Platform](https://developer.x.com/) にて開発者アカウントを作成し、API キーを発行する必要があります。リクエストを認証するために、以下のキーが必要です：
+- `consumer_key`
+- `consumer_secret`
+- `access_token`
+- `access_token_secret`
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：ポストを投稿する
+```yaml
+- id: post_tweet
+  tool: X_POST
+  config:
+    - name: consumer_key
+      value: "{{secrets.TWITTER_CONSUMER_KEY}}"
+    - name: consumer_secret
+      value: "{{secrets.TWITTER_CONSUMER_SECRET}}"
+    - name: access_token
+      value: "{{secrets.TWITTER_ACCESS_TOKEN}}"
+    - name: access_token_secret
+      value: "{{secrets.TWITTER_ACCESS_TOKEN_SECRET}}"
+  input:
+    - name: tweet_text
+      value: Hello from my automated tool using Tweepy!
+    - name: image_base64
+      value: ""
+    - name: image_extension
+      value: jpg
+```

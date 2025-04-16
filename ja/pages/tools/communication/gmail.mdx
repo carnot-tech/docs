@@ -1,0 +1,69 @@
+---
+title: 'Gmail モジュール'
+description: 'Gmail API を使ったメール操作'
+icon: 'envelope'
+---
+
+# Gmail モジュール
+
+## 概要
+
+これらのツールは、Gmail API を利用してメールの管理機能を提供します。
+
+## 主な機能
+
+- `GMAIL_LIST_MESSAGES`
+  - ユーザーのメールボックス内のメッセージを一覧表示
+- `GMAIL_GET_MESSAGE`
+  - メッセージ ID を指定して特定のメールを取得
+- `GMAIL_SEND_MESSAGE`
+  - メールを送信
+  - 下書きとして保存または直接送信に対応
+
+## 認証
+
+Gmail API を使用するには、[Jinba シークレットダッシュボード](https://app.jinba.io/workspace/secrets) にアクセスし、Google アカウントで認証を行う必要があります。これにより新しい OAuth トークンが作成されます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：メッセージの一覧表示、取得、送信
+```yaml
+- id: list_messages
+  tool: GMAIL_LIST_MESSAGES
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: user_id
+      value: me
+- id: get_message
+  tool: GMAIL_GET_MESSAGE
+  needs:
+    - list_messages
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: id
+      value: "{{steps.list_messages.result.messages[0].id}}"
+    - name: user_id
+      value: me
+- id: send_message
+  tool: GMAIL_SEND_MESSAGE
+  needs:
+    - get_message
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: as_draft
+      value: true
+    - name: user_id
+      value: me
+    - name: to_email
+      value: test@example.com
+    - name: subject
+      value: test draft
+    - name: body
+      value: draft
+```
