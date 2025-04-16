@@ -1,0 +1,38 @@
+---
+title: 'ファイルからの抽出'
+description: 'Base64 で表現されたファイルから情報を抽出する'
+icon: 'file'
+---
+
+## 概要
+ファイル抽出ツールは、Base64 形式でエンコードされたファイルから情報を抽出する機能を提供します。画像やドキュメントからテキストや関連データを抽出したい場合に特に便利です。
+
+## 主な機能
+- `PDF_EXTRACT_TEXT`: PDF ファイルからテキストを抽出
+- `DOCX_EXTRACT_TEXT`: DOCX ファイルからテキストを抽出
+- `EXCEL_EXTRACT_TEXT`: Excel ファイルから構造化データを抽出
+
+### 例：Base64 ファイルからデータを抽出する
+```yaml
+- id: extract_pdf
+  tool: PDF_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: pdf_base64
+      value: "{{secrets.PDF_FILE_BASE64}}"
+- id: extract_docx
+  tool: DOCX_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: docx_base64
+      value: "{{secrets.DOCX_FILE_BASE64}}"
+- id: extract_pdf
+  tool: PDF_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: pdf_base64
+      value: "{{secrets.PDF_FILE_BASE64}}"
+```

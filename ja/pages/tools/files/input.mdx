@@ -1,0 +1,26 @@
+---
+title: 'ファイル入力'
+description: 'URL からファイルを取得する'
+icon: 'file'
+---
+
+## 概要
+ファイル入力ツールを使用すると、指定された URL からファイルを取得できます。
+
+## 主な機能
+- `INPUT_PDF_FILE`: URL から PDF ファイルを取得
+- `INPUT_CSV_FILE`: URL から CSV ファイルを取得
+
+### 例：URL からファイルを取得する
+```yaml
+- id: "pdf"
+  tool: INPUT_PDF_FILE
+  input:
+    - name: value
+      value: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+- id: "1"
+  tool: INPUT_CSV_FILE
+  input:
+    - name: value
+      value: https://people.sc.fsu.edu/~jburkardt/data/csv/addresses.csv
+```
