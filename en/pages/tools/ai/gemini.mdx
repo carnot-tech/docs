@@ -1,49 +1,26 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'Gemini'
+description: 'Invoke responses from Gemini'
+icon: 'robot'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+Interact with Gemini with prompts or by sending images. The Gemini tool also allows you to send prompts and receive structured responses.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
+- `GEMINI_INVOKE`
+  - Send prompts to Gemini AI
+- `GEMINI_INVOKE_WITH_IMAGE`
+  - Send images to Gemini AI for analysis
 
+## Authentication
 
-## Method detail
-
-#### `methodName(param1, param2)`
-- **Description**: Explanation of what the method does
-- **Parameters**:
-  - `param1` (type): description
-  - `param2` (type): description
-- **Returns**: Description of return value
-- **Example**:
-### Official Documentation
-For detailed information, please refer to the official documentation:
-[Module Name Official Documentation](https://example.com/docs)
-
-
-## API or Oauth configuaration Keys
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create or select a project
-3. Navigate to APIs & Services > Credentials
-4. Click "Create Credentials" > "API key"
-5. Copy the generated API key
-6. Optional: Set restrictions for the API key
-
+If you do not have an API key, you can still run Gemini tools by using Jinba API credit. If you'd like to use your own API key, you can obtain one from the [official Gemini website](https://ai.google.dev/gemini-api/docs/api-key).
 
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-## Use Cases example
-- Case 1: [title of usecase]
-- Case 2: [title of usecase]
-
-### Case 1: Image Analysis and Spreadsheet Export
+### Image Analysis and Spreadsheet Export
 ```yaml
 - id: analyze_image
   name: analyze_image
@@ -82,9 +59,4 @@ For detailed information, please refer to the official documentation:
           ["Object", "Detected Object 1", "..."],
           ...
         ]
-```
-
-### Case 2: [Specific Scenario]
-```yaml
-please copy paste the yaml file
 ```
