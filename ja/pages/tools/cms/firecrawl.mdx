@@ -1,0 +1,42 @@
+---
+title: 'Firecrawl モジュール'
+description: 'Web クローリングとデータ収集を自動化する'
+icon: 'spider'
+---
+
+## 概要
+
+Firecrawl ツールは、ウェブサイトのクローリングとデータ収集を自動化する機能を提供します。
+
+## 主な機能
+
+- `FIRECRAWL_SCRAPE`
+  - ウェブページをスクレイピングしてデータを抽出
+  - JSON や CSV など、さまざまな出力形式に対応
+  - クローリングパラメータをカスタマイズ可能
+
+## 認証
+
+API キーがない場合でも、Jinba の API クレジットを使用して Firecrawl ツールを実行できます。自身の API キーを使用したい場合は、[公式 Firecrawl サイト](https://www.firecrawl.dev/) から取得し、開発者向けドキュメントに従ってください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Hacker News をスクレイピング
+```yaml
+- id: scrape
+  tool: FIRECRAWL_SCRAPE
+  config:
+    - name: token
+      value: "{{secrets.FIRECRAWL_API_KEY}}"
+  input:
+    - name: url
+      value: https://news.ycombinator.com
+    - name: formats
+      value: '["markdown","html","links"]'
+    - name: includeTags
+      value: '[".title a",".score",".age"]'
+    - name: excludeTags
+      value: '[".comment"]'
+    - name: waitFor
+      value: "1000"
+```
