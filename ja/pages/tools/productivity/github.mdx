@@ -1,0 +1,50 @@
+---
+title: 'Github'
+description: 'Github タスクの自動化'
+icon: 'github'
+---
+
+## 概要
+Github ツールを使用すると、リポジトリ、Issue、プルリクエストに関するさまざまなタスクを自動化できます。
+
+## 主な機能
+- `GITHUB_LIST_REPOSITORY_ISSUES`
+  - 指定したリポジトリ内の Issue を一覧表示
+- `GITHUB_CREATE_AN_ISSUE`
+  - 指定したリポジトリに新しい Issue を作成
+
+## 認証
+
+Github アカウントで、**Settings** > **Developer settings** > **Personal access tokens** に移動し、新しいトークンを生成してください。必要なスコープ（例：プライベートリポジトリの完全操作には `repo`）を付与する必要があります。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Issue の一覧取得と作成
+```yaml
+- name: List repository issues
+  id: list_repository_issues
+  tool: GITHUB_LIST_REPOSITORY_ISSUES
+  config:
+    - name: token
+      value: "{{secrets.GITHUB_TOKEN}}"
+  input:
+    - name: owner
+      value: nyuta01
+    - name: repository
+      value: cube-sl-demo
+- name: Create an issue
+  id: create_an_issue
+  tool: GITHUB_CREATE_AN_ISSUE
+  config:
+    - name: token
+      value: "{{secrets.GITHUB_TOKEN}}"
+  input:
+    - name: owner
+      value: nyuta01
+    - name: repository
+      value: cube-sl-demo
+    - name: title
+      value: Test issue
+    - name: body
+      value: This is a test issue
+```

@@ -1,0 +1,58 @@
+---
+title: 'Shopify'
+description: 'Shopify の商品と注文を管理する'
+icon: 'shopify'
+---
+
+## 概要
+Shopify ツールを使用すると、自分の Shopify ストア内の商品や注文を管理できます。商品の作成・更新・削除だけでなく、注文や在庫の管理も可能です。
+
+## 主な機能
+- `SHOPIFY_LIST_PRODUCTS`
+  - Shopify ストア内の商品一覧を取得
+- `SHOPIFY_CREATE_PRODUCT`
+  - 新しい商品を Shopify ストアに作成
+
+## 認証
+
+Shopify API を使用するには、Shopify ストアでプライベートアプリを作成する必要があります。これにより、API リクエストを認証するための必要な資格情報（API キーとパスワード）が提供されます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：商品一覧の取得と商品の作成
+```yaml
+- name: Get Product List
+  id: list_products
+  tool: SHOPIFY_LIST_PRODUCTS
+  config:
+    - name: token
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
+  input:
+    - name: shop_domain
+      value: jinbaflow.myshopify.com
+    - name: limit
+      value: 5
+- name: Create New Product
+  id: create_product
+  tool: SHOPIFY_CREATE_PRODUCT
+  config:
+    - name: token
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
+  input:
+    - name: shop_domain
+      value: gzb31e-yv.myshopify.com
+    - name: title
+      value: JinbaFlow Test Product
+    - name: description
+      value: This is a test product created from JinbaFlow.
+    - name: vendor
+      value: JinbaFlow
+    - name: product_type
+      value: Test
+    - name: status
+      value: DRAFT
+```

@@ -1,0 +1,48 @@
+---
+title: 'Google スプレッドシート'
+description: 'Google Sheets API を使ったスプレッドシート操作'
+icon: 'table'
+---
+
+## 概要
+
+Google Sheets API を使用して、スプレッドシートのデータ操作や自動化を行うことができます。
+
+## 主な機能
+
+- `GOOGLE_SHEETS_EDIT_SHEET`
+  - スプレッドシート ID、範囲、値を指定してシートを編集
+- `GET_SHEET`
+  - スプレッドシート ID と範囲を指定してデータを取得
+
+## 認証
+
+Google Sheets API を使用するには、[Jinba シークレットダッシュボード](https://app.jinba.io/workspace/secrets) にアクセスし、Google アカウントで認証してください。これにより、新しい OAuth トークンが生成されます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：シートの編集とデータ取得
+```yaml
+- id: edit_sheet
+  tool: GOOGLE_SHEETS_EDIT_SHEET
+  config:
+    - name: token
+      value: "{{secrets.GOOGLE_SHEETS_OAUTH_TOKEN}}"
+  input:
+    - name: spreadsheet_id
+      value: "0123456789"
+    - name: range
+      value: Sheet1!A1:D5
+    - name: values
+      value: '[["A1", "B1"], ["A2", "B2"]]'
+- id: get_sheet
+  tool: GET_SHEET
+  config:
+    - name: token
+      value: "{{secrets.GOOGLE_SHEETS_OAUTH_TOKEN}}"
+  input:
+    - name: spreadsheet_id
+      value: "0123456789"
+    - name: range
+      value: Sheet1!A1:D5
+```
