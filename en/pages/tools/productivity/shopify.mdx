@@ -1,59 +1,60 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'Shopify'
+description: 'Manage Shopify products and orders'
+icon: 'shopify'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+The Shopify tools allow you to manage products and orders in your Shopify store. You can create, update, and delete products, as well as manage orders and inventory.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
+- `SHOPIFY_LIST_PRODUCTS`
+  - Retrieve a list of products from your Shopify store.
+- `SHOPIFY_CREATE_PRODUCT`
+  - Create a new product in your Shopify store.
 
 
 ## Authentication
 
+To use the Shopify API, you need to create a private app in your Shopify store. This will provide you with the necessary credentials (API key and password) to authenticate your requests.
+
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-### Example:
+### Example: List Products and Create a Product
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- name: Get Product List
+  id: list_products
+  tool: SHOPIFY_LIST_PRODUCTS
   config:
-    - name: version
-      value: gemini-1.5-flash
     - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
+    - name: shop_domain
+      value: jinbaflow.myshopify.com
+    - name: limit
+      value: 5
+- name: Create New Product
+  id: create_product
+  tool: SHOPIFY_CREATE_PRODUCT
   config:
-    - name: version
-      value: gpt-4
+    - name: token
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: shop_domain
+      value: gzb31e-yv.myshopify.com
+    - name: title
+      value: JinbaFlow Test Product
+    - name: description
+      value: This is a test product created from JinbaFlow.
+    - name: vendor
+      value: JinbaFlow
+    - name: product_type
+      value: Test
+    - name: status
+      value: DRAFT
 ```

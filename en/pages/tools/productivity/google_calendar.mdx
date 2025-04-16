@@ -1,59 +1,55 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'Google Calendar'
+description: 'Automate Google Calendar tasks'
+icon: 'calendar'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+The Google Calendar tools allow you to automate various tasks related to Google Calendar, such as creating events, finding events, and managing calendar settings.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
-
+- `GOOGLE_CALENDAR_CREATE_EVENT`
+  - Create a new event in a specified calendar.
+- `GOOGLE_CALENDAR_FIND_EVENT`
+  - Find events in a specified calendar within a given time range.
 
 ## Authentication
 
+To use the Google Calendar API, you need navigate to the [Jinba secrets dashboard](https://app.jinba.io/workspace/secrets) and authenticate with your Google account. This will create a new OAuth token for you.
+
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-### Example:
+### Example: Create and Find Events
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- id: find_event
+  tool: GOOGLE_CALENDAR_FIND_EVENT
   config:
-    - name: version
-      value: gemini-1.5-flash
     - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+      value: ""
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
+    - name: calendar_id
+      value: primary
+    - name: time_min
+      value: 2025-01-01T00:00:00Z
+    - name: time_max
+      value: 2025-01-03T00:00:00Z
+    - name: query
+      value: yuta.n@carnot.ai
+- id: create_event
+  tool: GOOGLE_CALENDAR_CREATE_EVENT
   config:
-    - name: version
-      value: gpt-4
+    - name: token
+      value: ""
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: calendar_id
+      value: primary
+    - name: summary
+      value: Test Event
+    - name: description
+      value: This is a test event
+    - name: start
+      value: "{'dateTime': '2025-01-01T00:00:00Z'}"
+    - name: end
+      value: "{'dateTime': '2025-01-01T01:00:00Z'}"
 ```

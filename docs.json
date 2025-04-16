@@ -43,7 +43,6 @@
                 "pages": [
                   "en/pages/tools/productivity/github",
                   "en/pages/tools/productivity/notion",
-                  "en/pages/tools/productivity/google_drive",
                   "en/pages/tools/productivity/google_sheets",
                   "en/pages/tools/productivity/google_calendar",
                   "en/pages/tools/productivity/chatwork"
@@ -148,7 +147,6 @@
                 "pages": [
                   "ja/pages/tools/productivity/github",
                   "ja/pages/tools/productivity/notion",
-                  "ja/pages/tools/productivity/google_drive",
                   "ja/pages/tools/productivity/google_sheets",
                   "ja/pages/tools/productivity/google_calendar",
                   "ja/pages/tools/productivity/chatwork"

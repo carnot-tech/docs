@@ -10,7 +10,39 @@ Enables spreadsheet data operations and automation using the Google Sheets API.
 
 ## Key Features
 
-- Read data
-- Write data
-- Manage sheets
-- Apply formulas
+- `GOOGLE_SHEETS_EDIT_SHEET`
+  - Edit a Google Sheet by providing the spreadsheet ID, range, and values.
+- `GET_SHEET`
+  - Retrieve data from a Google Sheet by specifying the spreadsheet ID and range.
+
+## Authentication
+
+To use the Google Sheets API, you need navigate to the [Jinba secrets dashboard](https://app.jinba.io/workspace/secrets) and authenticate with your Google account. This will create a new OAuth token for you.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Edit and Get Sheet Data
+```yaml
+- id: edit_sheet
+  tool: GOOGLE_SHEETS_EDIT_SHEET
+  config:
+    - name: token
+      value: "{{secrets.GOOGLE_SHEETS_OAUTH_TOKEN}}"
+  input:
+    - name: spreadsheet_id
+      value: "0123456789"
+    - name: range
+      value: Sheet1!A1:D5
+    - name: values
+      value: '[["A1", "B1"], ["A2", "B2"]]'
+- id: get_sheet
+  tool: GET_SHEET
+  config:
+    - name: token
+      value: "{{secrets.GOOGLE_SHEETS_OAUTH_TOKEN}}"
+  input:
+    - name: spreadsheet_id
+      value: "0123456789"
+    - name: range
+      value: Sheet1!A1:D5
+```
