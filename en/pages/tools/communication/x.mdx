@@ -1,0 +1,45 @@
+---
+title: 'X'
+description: 'Post tweets using the X API'
+---
+
+
+## Overview
+The X tool allows you to post tweets using the X API. It supports posting text and/or images.
+
+## Key Features
+- `X_POST`
+  - Post tweets to your X account
+  - Supports text and image uploads
+
+## Authentication
+
+To use the X API, you need to create a developer account on the [X Developer Platform](https://developer.x.com/) and generate your API keys. This will provide you with the necessary credentials to authenticate your requests. You will need the following keys:
+- `consumer_key`
+- `consumer_secret`
+- `access_token`
+- `access_token_secret`
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Post a Tweet
+```yaml
+- id: post_tweet
+  tool: X_POST
+  config:
+    - name: consumer_key
+      value: "{{secrets.TWITTER_CONSUMER_KEY}}"
+    - name: consumer_secret
+      value: "{{secrets.TWITTER_CONSUMER_SECRET}}"
+    - name: access_token
+      value: "{{secrets.TWITTER_ACCESS_TOKEN}}"
+    - name: access_token_secret
+      value: "{{secrets.TWITTER_ACCESS_TOKEN_SECRET}}"
+  input:
+    - name: tweet_text
+      value: Hello from my automated tool using Tweepy!
+    - name: image_base64
+      value: ""
+    - name: image_extension
+      value: jpg
+```
