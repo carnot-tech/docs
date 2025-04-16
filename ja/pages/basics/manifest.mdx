@@ -1,0 +1,310 @@
+---
+title: "マニフェスト"
+description: "マニフェストの構造と書き方を学ぶ"
+---
+
+# マニフェストの記述方法
+
+サイトにおけるマニフェストは、ツールやスクリプトの実行フローを定義し、依存関係やデータ変換を指定します。このドキュメントでは、システムで使用される形式に従って、マニフェストの構成と記述方法を説明します。
+
+## 独自のマニフェストを作成する
+
+マニフェストを作成するには、以下の手順に従ってください：
+
+1. 各ステップに **`id` と `name`** を定義します。
+2. `INPUT_JSON` や `PYTHON_SANDBOX` など、適切な **`tool`** を選択します。
+3. `input` に **入力値を指定** します。
+4. `needs` を使って **依存関係を記述** し、実行順序を明示します。
+
+この構成に従えば、データ処理のための明確でモジュール化されたワークフローを作成できます。
+
+## ステップの構成要素
+
+Jinbaflow のマニフェストにおける各ステップは、動作と他のステップとの関係を定義するいくつかの主要な構成要素で構成されています。以下はその詳細です。
+
+### 1. 基本的なステップ構造
+```yaml
+- id: step_id
+  tool: TOOL_NAME
+  input:
+    - name: parameter_name
+      value: parameter_value
+  config:
+    - name: config_name
+      value: config_value
+  needs:
+    - step_id1
+    - step_id2
+  when: "condition"
+  forEach: "items"
+```
+
+各フィールドの説明:
+- `id`: ステップを一意に識別するための必須フィールド
+- `tool`: 実行するツールの名前（必須）
+- `input`: ツールに必要な入力値のリスト（必須）
+- `config`: ツール固有の設定（例：APIトークン、LLMの温度設定など）（任意）
+- `needs`: 実行前に完了している必要のあるステップID（任意）
+- `when`: 実行条件（任意）
+- `forEach`: コレクション内の各要素に対してステップを繰り返すための指定（任意）
+
+### 2. 設定 (config)
+ツール固有の設定を指定します：
+
+```yaml
+config:
+  - name: config_name
+    value: config_value
+```
+
+例：
+```yaml
+config:
+  - name: temperature
+    value: 0.7
+  - name: token
+    value: "{{secrets.API_TOKEN}}"
+```
+
+### 3. 依存関係 (needs)
+
+ステップの実行前に完了している必要のあるステップを指定します：
+
+```yaml
+needs:
+  - step_id1
+  - step_id2
+```
+
+例：
+```yaml
+- id: summarize
+  tool: LLM
+  needs:
+    - fetch_content
+    - analyze_sentiment
+```
+
+### 4. 条件付き実行
+
+条件に基づいてステップを実行するかどうかを制御します：
+
+```yaml
+when: "<condition_expression>"
+```
+
+例：
+```yaml
+when: "'{{steps.check_genre.result.content}}' == 'General'"
+when: "{{steps.count_items.result}} > 5"
+```
+
+### 5. ループ処理
+
+コレクション内の各アイテムに対してステップを繰り返し実行します：
+
+```yaml
+forEach: "{{steps.input_list.result}}"
+```
+
+例：
+```yaml
+- id: process_items
+  tool: PYTHON_SANDBOX_RUN
+  forEach: "{{steps.get_items.result}}"
+  input:
+    - name: code
+      value: "process_item('{{item}}')"
+    - name: data_type
+      value: "STRING"
+```
+
+### 6. 結果の参照
+
+以前のステップの結果を参照します：
+
+```yaml
+value: "{{steps.step_id.result}}"
+value: "{{steps.step_id.result.content}}"
+```
+
+### 注意事項
+
+- **ステップID** はワークフロー内で一意である必要があります。
+- **依存関係** によって暗黙の実行順序が決定されます。
+  - 複雑なグラフ構造（例：ダイヤモンド型）も可能
+  - 循環依存は許可されません
+- **条件文** は実行前に評価され、論理演算や比較、過去ステップの結果参照が可能です。
+- **変数参照**：
+  - `{{steps.step_id.result}}` で過去の結果にアクセス
+  - `{{secrets.SECRET_NAME}}` でシークレットにアクセス
+  - `{{item}}` はループ内の現在のアイテム
+- **YAML構文**：
+  - 複数行の文字列には `|` を使います。
+
+## Jinja2 テンプレート構文
+
+Jinbaflow は、マニフェスト内での動的な値生成や複雑なロジックに Jinja2 テンプレートをサポートしています。
+
+利用可能な変数：
+- `steps`: 過去ステップの結果
+- `item`: forEach ループ内の現在の要素
+- `secrets`: 設定されたシークレット
+- その他、`zip()`、`range()` などの組み込み関数も使用可能
+
+`{%-` や `-%}` を使用することで、出力に含まれる空白を制御できます。
+
+### 基本構文
+
+1. **変数の挿入**
+```yaml
+value: "{{ variable }}"
+```
+
+2. **制御構文**
+```yaml
+# 繰り返し
+{%- for item in items %}
+  {{ item }}
+{%- endfor %}
+
+# 条件分岐
+{%- if condition %}
+  {{ value }}
+{%- endif %}
+```
+
+3. **ステップ結果の参照**
+```yaml
+value: "{{ steps.step_id.result }}"
+value: "{{ steps.step_id.result.content }}"
+```
+
+### よくあるユースケース
+
+1. **リストの処理**
+```yaml
+- id: process_items
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        items = []
+        {%- for item in steps.input_list.result %}
+        items.append({
+          "id": "{{item.id}}",
+          "value": "{{item.value}}"
+        })
+        {%- endfor %}
+    - name: data_type
+      value: "STRING"
+```
+
+2. **条件分岐のロジック**
+```yaml
+- id: conditional_step
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        {%- if steps.check.result.status == 'success' %}
+        print("Processing successful case")
+        {%- else %}
+        print("Handling error case")
+        {%- endif %}
+    - name: data_type
+      value: "STRING"
+```
+
+3. **複数リストの組み合わせ**
+```yaml
+- id: combine_data
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        results = []
+        {%- for item1, item2 in zip(list1, list2) %}
+        results.append(f"{item1}: {item2}")
+        {%- endfor %}
+    - name: data_type
+      value: "STRING"
+```
+
+### パターン例
+
+1. **リストのフィルタリング**
+```yaml
+{%- for item in items if item.status == 'active' %}
+{{ item.name }}
+{%- endfor %}
+```
+
+2. **デフォルト値の設定**
+```yaml
+{{ variable | default('default_value') }}
+```
+
+3. **文字列操作**
+```yaml
+{{ variable | upper }}
+{{ variable | trim }}
+{{ variable | replace('old', 'new') }}
+```
+
+## マニフェストの例
+
+以下は、数値データを複数のステップで処理する例です：
+
+```yaml
+- id: input_data
+  name: input_data
+  tool: INPUT_JSON
+  config: []
+  input:
+    - name: value
+      value: "[1, 2, 3, 4, 5]"
+
+- id: branch_a1
+  name: branch_a1
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        data = {{steps.input_data.result}}
+        result = sum([x for x in data if x % 2 == 0])
+        result  # 偶数の合計
+  needs:
+    - input_data
+
+- id: branch_a2
+  name: branch_a2
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        result = {{steps.branch_a1.result.text}} * 2
+        result  # 合計を2倍
+  needs:
+    - branch_a1
+```
+
+## 各ステップの説明
+
+### 1. **Input Data (`input_data`)**
+- 数値配列 `[1, 2, 3, 4, 5]` を `INPUT_JSON` ツールで入力します。
+
+### 2. **Branch A1 (`branch_a1`)**
+- `PYTHON_SANDBOX` を使用して、偶数の合計を計算します。
+- `input_data` に依存しています。
+
+### 3. **Branch A2 (`branch_a2`)**
+- `branch_a1` の結果を2倍します。
+- `branch_a1` に依存しています。
+
+### 4. **Branch B1 (`branch_b1`)**
+- `input_data` の奇数の合計を計算します。
+- `input_data` に依存しています。
+```
