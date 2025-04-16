@@ -1,59 +1,56 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'Input JSON with Validation'
+description: 'Validate your JSON input against a schema'
+icon: 'square-check'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+The JSON Input Validation tool allows you to validate the input of your JSON data against a specified schema. This ensures that the input meets the expected structure and data types, helping to catch errors early in the process.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
+- `INPUT_JSON_WITH_VALIDATION`
+  - Validate your JSON input against a schema.
+  - Ensure that the input meets the specified structure and data types.
 
 
-## Authentication
-
-**Note**: Treat API keys as sensitive information and never commit them to public repositories.
-
-### Example:
+### Example: Validate JSON Input
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- id: success
+  tool: INPUT_JSON_WITH_VALIDATION
   config:
-    - name: version
-      value: gemini-1.5-flash
-    - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
+    - name: value
+      value: '{"name": "John", "age": 30}'
+- id: failure
+  tool: INPUT_JSON_WITH_VALIDATION
   config:
-    - name: version
-      value: gpt-4
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: value
+      value: '{"name": "John"}'
+- id: no_schema
+  tool: INPUT_JSON_WITH_VALIDATION
+  input:
+    - name: value
+      value: '{"name": "John"}'
 ```
