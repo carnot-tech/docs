@@ -1,0 +1,22 @@
+---
+title: 'Arxiv エージェント'
+description: 'arXiv から論文を検索・取得する'
+icon: 'book-open'
+---
+
+## 概要
+Arxiv Agent ツールを使用すると、arXiv リポジトリから論文を検索・取得できます。クエリ文字列に基づいて関連する研究論文を取得するためのシンプルなインターフェースを提供します。
+
+## 主な機能
+- `ARXIV_INVOKE_AGENT`
+  - クエリ文字列を使って arXiv 上の論文を検索
+  - 論文のメタデータや内容を取得
+
+### 例：論文を検索する
+```yaml
+- id: invoke_arxiv_agent
+  tool: ARXIV_INVOKE_AGENT
+  input:
+    - name: query
+      value: What's the paper 1605.08386 about?
+```

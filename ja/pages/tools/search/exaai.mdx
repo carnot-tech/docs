@@ -1,0 +1,31 @@
+---
+title: 'Exa AI'
+description: 'Exa AI を使ってウェブ検索を行う'
+icon: 'searchengin'
+---
+
+## 概要
+Exa AI ツールを使用すると、Exa AI の機能を活用してウェブ検索ができます。クエリに基づいて関連情報を取得するためのシンプルなインターフェースを提供します。
+
+## 主な機能
+- `EXAAI_SEARCH`
+  - クエリ文字列を使ってウェブ上の情報を検索
+  - 入力に基づいて関連する検索結果を取得
+
+## 認証
+
+Exa AI の API キーがない場合でも、Jinba の API クレジットを使って Exa AI ツールを実行できます。独自の API キーを使用したい場合は、[公式 Exa AI サイト](https://exa.ai/) から取得してください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Exa AI 検索を実行する
+```yaml
+- id: search
+  tool: EXAAI_SEARCH
+  config:
+    - name: exaApiKey
+      value: "{{secrets.EXAAI_API_KEY}}"
+  input:
+    - name: query
+      value: find blog posts about AGI
+```

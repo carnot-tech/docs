@@ -1,0 +1,38 @@
+---
+title: 'PokeAPI'
+description: 'PokeAPI を使ってポケモンデータを検索する'
+icon: 'bolt-lightning'
+---
+
+## 概要
+PokeAPI ツールを使用すると、ポケモンに関するデータ（個体情報、特性、タイプなど）を検索できます。幅広いポケモン関連データに迅速にアクセスするためのツールです。
+
+## 主な機能
+- `POKEAPI_GET_POKEMON`
+  - ポケモンの ID または名前を指定して詳細情報を取得
+  - 身長・体重・特性などの属性にアクセス可能
+- `POKEAPI_GET_TYPE`
+  - 特定のポケモンタイプに関する情報を取得
+  - 相性や効果などの関係性を確認可能
+- `POKEAPI_GET_ABILITY`
+  - 特定のポケモンの特性に関する情報を取得
+  - 効果やどのポケモンがその特性を持つかを確認可能
+
+### 例：PokeAPI を実行する
+```yaml
+- id: get_pokemon
+  tool: POKEAPI_GET_POKEMON
+  input:
+    - name: id
+      value: "1"
+- id: get_type
+  tool: POKEAPI_GET_TYPE
+  input:
+    - name: id
+      value: "1"
+- id: get_ability
+  tool: POKEAPI_GET_ABILITY
+  input:
+    - name: id
+      value: "65"
+```

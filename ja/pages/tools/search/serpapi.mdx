@@ -1,0 +1,34 @@
+---
+title: 'SerpAPI'
+description: 'SerpAPI を使ってウェブ検索を行う'
+icon: 'searchengin'
+---
+
+## 概要
+SerpAPI ツールを使用すると、SerpAPI の機能を活用してウェブ検索ができます。クエリに基づいて関連情報を取得するためのシンプルなインターフェースを提供します。
+
+## 主な機能
+- `SERPAPI_SEARCH`
+  - クエリ文字列を使ってウェブ上の情報を検索
+  - 入力に基づいて関連する検索結果を取得
+  - 質問への回答や要約などの取得も可能
+
+## 認証
+
+SerpAPI の API キーがない場合でも、Jinba の API クレジットを使って SerpAPI ツールを実行できます。独自の API キーを使用したい場合は、[公式 SerpAPI サイト](https://serpapi.com/) から取得してください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：SerpAPI 検索を実行する
+```yaml
+- id: serpapi_search
+  tool: SERPAPI_SEARCH
+  config:
+    - name: token
+      value: "{{secrets.SERPAPI_API_KEY}}"
+  input:
+    - name: query
+      value: What is the capital of France?
+    - name: engine
+      value: google
+```

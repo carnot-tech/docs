@@ -1,0 +1,49 @@
+---
+title: 'Teradata'
+description: 'Teradata 上でクエリを実行する'
+icon: 'database'
+---
+
+## 概要
+Teradata ツールを使用すると、Teradata データベースに対して SQL クエリを実行できます。
+
+## 主な機能
+- `TERADATA_RUN_QUERY`
+  - Teradata データベース上で SQL クエリを実行
+  - 構造化された形式で結果を取得可能
+
+## 認証
+
+このツールを使用するには、Teradata データベースの認証情報（ホスト、ユーザー名、パスワード）を知っている必要があります。
+
+**注意**：API キーや認証情報は機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Teradata クエリの実行
+```yaml
+- id: run_query
+  tool: TERADATA_RUN_QUERY
+  config:
+    - name: host
+      value: 100.21.165.28
+    - name: user
+      value: carnot
+    - name: password
+      value: carnot#123
+  input:
+    - name: query
+      value: "
+
+        \          with examples as (
+
+        \              select 1 as id, 'jon' as name
+
+        \              union all
+
+        \              select 2 as id, 'jane' as name
+
+        \          )
+
+        \          select * from examples;
+
+        \          "
+```
