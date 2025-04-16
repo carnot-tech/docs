@@ -108,8 +108,7 @@
               {
                 "group": "Jinba",
                 "pages": [
-                  "en/pages/tools/jinba/jinba",
-                  "en/pages/tools/jinba/search-corp"
+                  "en/pages/tools/jinba/jinba"
                 ]
               }
             ]
@@ -214,8 +213,7 @@
               {
                 "group": "ジンバ",
                 "pages": [
-                  "ja/pages/tools/jinba/jinba",
-                  "ja/pages/tools/jinba/search-corp"
+                  "ja/pages/tools/jinba/jinba"
                 ]
               }
             ]
