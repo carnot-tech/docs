@@ -1,59 +1,46 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'Slack'
+description: 'Slack messaging business platform tools'
+icon: 'slack'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+Slack tools allow you to interact with the Slack messaging platform. It provides functionalities for sending messages, retrieving user profiles, broadcasting messages, and more.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
-
+- `SLACK_POST_MESSAGE`
+  - Send messages to users or channels
+- `SLACK_GET_CONVERSATION_REPLIES`
+  - Retrieve replies to a specific thread in a channel
 
 ## Authentication
 
+To use the Slack tools, you to create a Slack App and obtain a Bot User OAuth Access Token. You can create a Slack App and get the token from the [Slack API website](https://api.slack.com/apps). Follow the instructions in the developer documentation to set up your app and get the token.
+
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-### Example:
+### Example: Sending and Retrieving Messages
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- id: get_conversation_replies
+  tool: SLACK_GET_CONVERSATION_REPLIES
   config:
-    - name: version
-      value: gemini-1.5-flash
     - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+      value: "{{secrets.SLACK_BOT_TOKEN}}"
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
+    - name: channel
+      value: "#jinba-dev-tmp"
+    - name: thread_ts
+      value: "1738331888.564969"
+- id: send_message
+  tool: SLACK_POST_MESSAGE
   config:
-    - name: version
-      value: gpt-4
+    - name: token
+      value: "{{secrets.SLACK_BOT_TOKEN}}"
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
+    - name: text
+      value: Hello, world!
+    - name: channel
+      value: "#900_tl_yuta"
 
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
 ```

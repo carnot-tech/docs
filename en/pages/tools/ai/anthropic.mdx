@@ -21,17 +21,14 @@ To get an Anthropic API key, please sign up at the [official Anthropic website](
 
 ### Example: Asking Claude a Question
 ```yaml
-name: Anthropic Claude
-description: Use Claude to generate text
-steps:
-  - id: claude
-    tool: ANTHROPIC_INVOKE
-    config:
-      - name: version
-        value: claude-3-7-sonnet-20250219
-      - name: token
-        value: "{{secrets.ANTHROPIC_API_KEY}}"
-    input:
-      - name: prompt
-        value: What is the capital of France?
+- id: claude
+  tool: ANTHROPIC_INVOKE
+  config:
+    - name: version
+      value: claude-3-7-sonnet-20250219
+    - name: token
+      value: "{{secrets.ANTHROPIC_API_KEY}}"
+  input:
+    - name: prompt
+      value: What is the capital of France?
 ```

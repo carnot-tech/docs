@@ -1,6 +1,7 @@
 ---
 title: 'Wordpress'
 description: 'Make a new article on Wordpress'
+icon: 'wordpress'
 ---
 
 
@@ -21,26 +22,23 @@ After setting up your Wordpress site, you need to create an application password
 
 ### Example: Creating a New Article
 ```yaml
-name: Wordpress
-description: Make a new article on Wordpress
-steps:
-  - id: wordpress
-    name: Post Article
-    tool: WORDPRESS_POST_ARTICLE
-    config:
-      - name: url
-        value: https://sample.wordpress.com/
-      - name: username
-        value: admin
-      - name: password
-        value: "{{secrets.WORDPRESS_APPLICATION_PASSWORD}}"
-    input:
-      - name: content
-        value: |-
-          <h1>Hello World</h1>
-          <p>This is a sample post.</p>
-      - name: draft
-        value: false
-      - name: title
-        value: Test
+- id: wordpress
+  name: Post Article
+  tool: WORDPRESS_POST_ARTICLE
+  config:
+    - name: url
+      value: https://sample.wordpress.com/
+    - name: username
+      value: admin
+    - name: password
+      value: "{{secrets.WORDPRESS_APPLICATION_PASSWORD}}"
+  input:
+    - name: content
+      value: |-
+        <h1>Hello World</h1>
+        <p>This is a sample post.</p>
+    - name: draft
+      value: false
+    - name: title
+      value: Test
 ```

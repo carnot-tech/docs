@@ -8,56 +8,62 @@ icon: 'envelope'
 
 ## Overview
 
-This module provides functionality for email management using the Gmail API.
+These tools provide functionality for email management using the Gmail API.
 
 ## Key Features
 
-- Send emails
-- Receive and search emails
-- Handle attachments
-- Manage labels
+- `GMAIL_LIST_MESSAGES`
+  - List messages in the user's mailbox
+- `GMAIL_GET_MESSAGE`
+  - Retrieve a specific message by ID
+- `GMAIL_SEND_MESSAGE`
+  - Send an email message
+  - Supports sending as a draft or directly to the recipient
 
-## OAuth Configuration
+## Authentication
+
+To use the Gmail API, you need navigate to the [Jinba secrets dashboard](https://app.jinba.io/workspace/secrets) and authenticate with your Google account. This will create a new OAuth token for you.
 
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-### Example:
+### Example: List, Get, and Send Messages
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- id: list_messages
+  tool: GMAIL_LIST_MESSAGES
   config:
-    - name: version
-      value: gemini-1.5-flash
     - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
+    - name: user_id
+      value: me
+- id: get_message
+  tool: GMAIL_GET_MESSAGE
+  needs:
+    - list_messages
   config:
-    - name: version
-      value: gpt-4
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: id
+      value: "{{steps.list_messages.result.messages[0].id}}"
+    - name: user_id
+      value: me
+- id: send_message
+  tool: GMAIL_SEND_MESSAGE
+  needs:
+    - get_message
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: as_draft
+      value: true
+    - name: user_id
+      value: me
+    - name: to_email
+      value: test@example.com
+    - name: subject
+      value: test draft
+    - name: body
+      value: draft
 ```

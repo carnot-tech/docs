@@ -6,7 +6,7 @@ icon: 'spider'
 
 ## Overview
 
-The Firecrawl module provides functionality for automating website crawling and data collection.
+The Firecrawl tool provides functionality for automating website crawling and data collection.
 
 ## Key Features
 
@@ -23,22 +23,20 @@ If you do not have an API key, you can still run Firecrawl tools by using Jinba 
 
 ### Example: Scrape Hacker News
 ```yaml
-name: Scrape Hacker News with Firecrawl v1
-steps:
-  - id: scrape
-    tool: FIRECRAWL_SCRAPE
-    config:
-      - name: token
-        value: "{{secrets.FIRECRAWL_API_KEY}}"
-    input:
-      - name: url
-        value: https://news.ycombinator.com
-      - name: formats
-        value: '["markdown","html","links"]'
-      - name: includeTags
-        value: '[".title a",".score",".age"]'
-      - name: excludeTags
-        value: '[".comment"]'
-      - name: waitFor
-        value: "1000"
+- id: scrape
+  tool: FIRECRAWL_SCRAPE
+  config:
+    - name: token
+      value: "{{secrets.FIRECRAWL_API_KEY}}"
+  input:
+    - name: url
+      value: https://news.ycombinator.com
+    - name: formats
+      value: '["markdown","html","links"]'
+    - name: includeTags
+      value: '[".title a",".score",".age"]'
+    - name: excludeTags
+      value: '[".comment"]'
+    - name: waitFor
+      value: "1000"
 ```

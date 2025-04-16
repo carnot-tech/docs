@@ -20,20 +20,16 @@ If you do not have an API key, you can still run Grok tools by using Jinba API c
 
 ### Example: Image Analysis and Spreadsheet Export
 ```yaml
-name: Chat with Grok
-description: This flow demonstrates how to use the Grok Chat API.
-steps:
-  - id: grok_chat
-    tool: GROK_CHAT
-    input:
-      - name: system_prompt
-        value: You're an assistant
-      - name: model
-        value: grok-2-latest
-      - name: prompt
-        value: why am I here
-    config:
-      - name: api_key
-        value: "{{secrets.GROK_CHAT}}"
-
+- id: grok_chat
+  tool: GROK_CHAT
+  input:
+    - name: system_prompt
+      value: You're an assistant
+    - name: model
+      value: grok-2-latest
+    - name: prompt
+      value: why am I here
+  config:
+    - name: api_key
+      value: "{{secrets.GROK_CHAT}}"
 ```
