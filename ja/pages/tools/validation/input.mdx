@@ -1,0 +1,56 @@
+---
+title: 'JSON 入力（バリデーション付き）'
+description: 'JSON 入力をスキーマに基づいて検証する'
+icon: 'square-check'
+---
+
+## 概要
+JSON 入力バリデーションツールを使用すると、指定されたスキーマに基づいて JSON データを検証できます。これにより、期待される構造やデータ型を満たしているかをチェックし、早期にエラーを発見できます。
+
+## 主な機能
+- `INPUT_JSON_WITH_VALIDATION`
+  - JSON 入力をスキーマに基づいて検証
+  - 指定された構造とデータ型に適合しているかをチェック
+
+### 例：JSON 入力をバリデートする
+```yaml
+- id: success
+  tool: INPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "age": { "type": "number" }
+          },
+          "required": ["name", "age"]
+        }
+  input:
+    - name: value
+      value: '{"name": "John", "age": 30}'
+
+- id: failure
+  tool: INPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "age": { "type": "number" }
+          },
+          "required": ["name", "age"]
+        }
+  input:
+    - name: value
+      value: '{"name": "John"}'
+
+- id: no_schema
+  tool: INPUT_JSON_WITH_VALIDATION
+  input:
+    - name: value
+      value: '{"name": "John"}'
+```

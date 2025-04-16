@@ -1,0 +1,36 @@
+---
+title: 'SerpAPI'
+description: 'Search the web using SerpAPI'
+icon: 'searchengin'
+---
+
+
+## Overview
+The SerpAPI tool allows you to search the web using SerpAPI's capabilities. It provides a simple interface to query the web and retrieve relevant information based on your input.
+
+## Key Features
+- `SERPAPI_SEARCH`
+  - Search for information on the web using a query string.
+  - Retrieve relevant results based on your input.
+  - Get answers to questions, summaries, and more.
+
+
+## Authentication
+
+If you do not have a SerpAPI API key, you can still run SerpAPI tools by using Jinba API credit. If you'd like to use your own API key, you can obtain one from the [official SerpAPI website](https://serpapi.com/).
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Run SerpAPI Search
+```yaml
+- id: serpapi_search
+  tool: SERPAPI_SEARCH
+  config:
+    - name: token
+      value: "{{secrets.SERPAPI_API_KEY}}"
+  input:
+    - name: query
+      value: What is the capital of France?
+    - name: engine
+      value: google
+```

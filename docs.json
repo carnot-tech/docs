@@ -3,84 +3,223 @@
   "theme": "linden",
   "name": "jinba",
   "colors": {
-  "primary": "#8572C0",
+    "primary": "#8572C0",
     "light": "#A58CE0",
     "dark": "#5A4780"
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Guides",
+        "language": "en",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Getting Started",
             "pages": [
-              "introduction", 
-              "pages/intro/quickstart"
-            ]
-          },
-          {
-            "group": "Search and use template",
-            "pages": [
-              "pages/templates/search",
-              "pages/templates/fork_and_setting"
+              "en/introduction"
             ]
           },
           {
             "group": "How to make your workflow",
             "pages": [
-              "pages/basics/chat",
-              "pages/basics/drag_and_drop",
-              "pages/basics/manifest"
+              "en/pages/basics/chat",
+              "en/pages/basics/drag_and_drop",
+              "en/pages/basics/manifest"
             ]
           },
           {
-            "group": "Modules and Connector",
+            "group": "Tools",
             "pages": [
               {
-                "group": "Google Application",
+                "group": "Validation & Conversion",
                 "pages": [
-                  "pages/modules/google-application/gmail",
-                  "pages/modules/google-application/spread-sheet", 
-                  "pages/modules/google-application/google-docs"
+                  "en/pages/tools/validation/input",
+                  "en/pages/tools/validation/output",
+                  "en/pages/tools/validation/markitdown_convert"
                 ]
               },
-              "pages/modules/firecrawl",
-              "pages/modules/template-module-explanation"
+              {
+                "group": "Productivity",
+                "pages": [
+                  "en/pages/tools/productivity/github",
+                  "en/pages/tools/productivity/notion",
+                  "en/pages/tools/productivity/google_sheets",
+                  "en/pages/tools/productivity/google_calendar",
+                  "en/pages/tools/productivity/chatwork"
+                ]
+              },
+              {
+                "group": "Communication",
+                "pages": [
+                  "en/pages/tools/communication/gmail",
+                  "en/pages/tools/communication/slack",
+                  "en/pages/tools/communication/discord",
+                  "en/pages/tools/communication/line"
+                ]
+              },
+              {
+                "group": "AI & LLM",
+                "pages": [
+                  "en/pages/tools/ai/gemini",
+                  "en/pages/tools/ai/grok",
+                  "en/pages/tools/ai/anthropic"
+                ]
+              },
+              {
+                "group": "E-Commerce",
+                "pages": [
+                  "en/pages/tools/productivity/shopify",
+                  "en/pages/tools/productivity/netsea"
+                ]
+              },
+              {
+                "group": "Sandbox & Scripting",
+                "pages": [
+                  "en/pages/tools/sandbox/python_sandbox_run"
+                ]
+              },
+              {
+                "group": "Search & Data Retrieval",
+                "pages": [
+                  "en/pages/tools/search/serpapi",
+                  "en/pages/tools/search/pokeapi",
+                  "en/pages/tools/search/youtube",
+                  "en/pages/tools/search/arxiv",
+                  "en/pages/tools/search/exaai",
+                  "en/pages/tools/search/perplexity",
+                  "en/pages/tools/search/teradata"
+                ]
+              },
+              {
+                "group": "Files",
+                "pages": [
+                  "en/pages/tools/files/input",
+                  "en/pages/tools/files/extract"
+                ]
+              },
+              {
+                "group": "CMS & Web Tools",
+                "pages": [
+                  "en/pages/tools/cms/wordpress",
+                  "en/pages/tools/cms/firecrawl"
+                ]
+              },
+              {
+                "group": "Jinba",
+                "pages": [
+                  "en/pages/tools/jinba/jinba"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "language": "ja",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "はじめに",
             "pages": [
-              "api-reference/introduction"
+              "ja/introduction"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "ワークフローの作り方",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
+              "ja/pages/basics/chat",
+              "ja/pages/basics/drag_and_drop",
+              "ja/pages/basics/manifest"
+            ]
+          },
+          {
+            "group": "ツール",
+            "pages": [
+              {
+                "group": "検証と変換",
+                "pages": [
+                  "ja/pages/tools/validation/input",
+                  "ja/pages/tools/validation/output",
+                  "ja/pages/tools/validation/markitdown_convert"
+                ]
+              },
+              {
+                "group": "業務効率化",
+                "pages": [
+                  "ja/pages/tools/productivity/github",
+                  "ja/pages/tools/productivity/notion",
+                  "ja/pages/tools/productivity/google_sheets",
+                  "ja/pages/tools/productivity/google_calendar",
+                  "ja/pages/tools/productivity/chatwork"
+                ]
+              },
+              {
+                "group": "コミュニケーション",
+                "pages": [
+                  "ja/pages/tools/communication/gmail",
+                  "ja/pages/tools/communication/slack",
+                  "ja/pages/tools/communication/discord",
+                  "ja/pages/tools/communication/line",
+                  "ja/pages/tools/communication/x"
+                ]
+              },
+              {
+                "group": "AIとLLM",
+                "pages": [
+                  "ja/pages/tools/ai/gemini",
+                  "ja/pages/tools/ai/grok",
+                  "ja/pages/tools/ai/anthropic"
+                ]
+              },
+              {
+                "group": "Eコマース",
+                "pages": [
+                  "ja/pages/tools/productivity/shopify",
+                  "ja/pages/tools/productivity/netsea"
+                ]
+              },
+              {
+                "group": "サンドボックス＆スクリプト",
+                "pages": [
+                  "ja/pages/tools/sandbox/python_sandbox_run"
+                ]
+              },
+              {
+                "group": "検索とデータ取得",
+                "pages": [
+                  "ja/pages/tools/search/serpapi",
+                  "ja/pages/tools/search/pokeapi",
+                  "ja/pages/tools/search/youtube",
+                  "ja/pages/tools/search/arxiv",
+                  "ja/pages/tools/search/exaai",
+                  "ja/pages/tools/search/perplexity",
+                  "ja/pages/tools/search/teradata"
+                ]
+              },
+              {
+                "group": "ファイル",
+                "pages": [
+                  "ja/pages/tools/files/input",
+                  "ja/pages/tools/files/extract"
+                ]
+              },
+              {
+                "group": "CMS＆Webツール",
+                "pages": [
+                  "ja/pages/tools/cms/wordpress",
+                  "ja/pages/tools/cms/firecrawl"
+                ]
+              },
+              {
+                "group": "ジンバ",
+                "pages": [
+                  "ja/pages/tools/jinba/jinba"
+                ]
+              }
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Company website",
-          "href": "https://carnot.ai/",
-          "icon": "book-open-cover"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/jinba_logo.svg",
@@ -101,9 +240,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/jinbaflow_JP",
+      "discord": "https://discord.gg/qfkr6RXp",
+      "website": "https://app.jinba.io"
     }
   }
 }

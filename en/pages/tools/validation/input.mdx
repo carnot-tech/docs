@@ -1,0 +1,56 @@
+---
+title: 'Input JSON with Validation'
+description: 'Validate your JSON input against a schema'
+icon: 'square-check'
+---
+
+
+## Overview
+The JSON Input Validation tool allows you to validate the input of your JSON data against a specified schema. This ensures that the input meets the expected structure and data types, helping to catch errors early in the process.
+
+## Key Features
+- `INPUT_JSON_WITH_VALIDATION`
+  - Validate your JSON input against a schema.
+  - Ensure that the input meets the specified structure and data types.
+
+
+### Example: Validate JSON Input
+```yaml
+- id: success
+  tool: INPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
+  input:
+    - name: value
+      value: '{"name": "John", "age": 30}'
+- id: failure
+  tool: INPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
+  input:
+    - name: value
+      value: '{"name": "John"}'
+- id: no_schema
+  tool: INPUT_JSON_WITH_VALIDATION
+  input:
+    - name: value
+      value: '{"name": "John"}'
+```

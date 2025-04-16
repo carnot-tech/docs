@@ -1,0 +1,298 @@
+---
+title: "Manifest"
+description: "Learn how to structure and write a manifest."
+---
+
+
+# Writing a Manifest
+
+A manifest in your site defines the execution flow of tools and scripts, specifying dependencies and data transformations. This document outlines how to structure and write a manifest following the format used in your system.
+
+## Writing Your Own Manifest
+
+To create a manifest:
+1. **Define an `id` and `name`** for each step.
+2. **Choose the appropriate `tool`**, such as `INPUT_JSON` or `PYTHON_SANDBOX`.
+3. **Specify input values** under `input`.
+4. **List dependencies** using `needs` to ensure correct execution order.
+
+By following this structure, you can build a clear, modular workflow for processing data efficiently.
+
+## Step Components
+
+Each step in a Jinbaflow manifest is composed of several key components that define its behavior and relationship with other steps. Here's a detailed breakdown:
+
+### 1. Basic Step Structure
+```yaml
+- id: step_id                 # Unique identifier for the step
+  tool: TOOL_NAME            # The tool to use (e.g., LLM, PYTHON_SANDBOX)
+  input:                     # Input parameters required by the tool
+    - name: parameter_name   # Name of the input parameter
+      value: parameter_value # Value for the parameter
+  config:                    # Optional: Tool-specific configuration
+    - name: config_name     # Name of the configuration parameter
+      value: config_value   # Value for the configuration
+  needs:                     # Optional: List of step IDs that must complete first
+    - step_id1             # Step that must complete before this one
+    - step_id2             # Another dependency
+  when: "condition"          # Optional: Condition that must be true for step to run
+  forEach: "items"           # Optional: Run step for each item in a collection
+```
+
+Each field serves a specific purpose:
+- `id`: Required unique identifier for referencing the step
+- `tool`: Required name of the tool to execute (must be one of the available tools)
+- `input`: Required list of input parameters specific to the tool
+- `config`: Optional tool-specific configuration (e.g., API tokens, temperature for LLM)
+- `needs`: Optional list of step IDs that must complete before this step runs
+- `when`: Optional condition that must evaluate to true for the step to execute
+- `forEach`: Optional field to execute the step multiple times over a collection
+
+### 2. Configuration
+Used to set tool-specific settings:
+```yaml
+config:
+  - name: config_name
+    value: config_value
+```
+Example:
+```yaml
+config:
+  - name: temperature
+    value: 0.7
+  - name: token
+    value: "{{secrets.API_TOKEN}}"
+```
+
+### 3. Dependencies
+Specify which steps must complete before this step can run:
+```yaml
+needs:
+  - step_id1
+  - step_id2
+```
+Example:
+```yaml
+- id: summarize
+  tool: LLM
+  needs:
+    - fetch_content
+    - analyze_sentiment
+```
+
+### 4. Conditional Execution
+Control whether a step should run based on conditions:
+```yaml
+when: "<condition_expression>"
+```
+Examples:
+```yaml
+when: "'{{steps.check_genre.result.content}}' == 'General'"
+when: "{{steps.count_items.result}} > 5"
+```
+
+### 5. Loop Execution
+Execute a step for each item in a collection:
+```yaml
+forEach: "{{steps.input_list.result}}"
+```
+Example:
+```yaml
+- id: process_items
+  tool: PYTHON_SANDBOX_RUN
+  forEach: "{{steps.get_items.result}}"
+  input:
+    - name: code
+      value: "process_item('{{item}}')"
+    - name: data_type
+      value: "STRING"
+```
+
+### 6. Result Reference
+Reference results from previous steps:
+```yaml
+value: "{{steps.step_id.result}}"           # Access entire result
+value: "{{steps.step_id.result.content}}"   # Access specific property
+```
+
+### Important Notes
+
+- **Step IDs**: Must be unique within the workflow
+- **Dependencies**:
+  - Create an implicit execution order
+  - Can form complex graphs (including diamond patterns)
+  - Circular dependencies are not allowed
+- **Conditions**:
+  - Support basic comparisons and logical operators
+  - Can reference results from previous steps
+  - Evaluated before step execution
+- **Variable References**:
+  - Use `{{steps.step_id.result}}` to access previous step results
+  - Use `{{secrets.SECRET_NAME}}` to access configured secrets
+  - Use `{{item}}` in forEach loops to access the current item
+- **YAML Syntax**:
+  - Use `|` for a multi-line string until the indentation ends.
+
+## Jinja2 Template Syntax
+
+Jinbaflow supports Jinja2 templating for dynamic value generation and complex logic in manifest files. This powerful feature allows you to create more flexible and reusable workflows. When using templates, you have access to:
+- `steps`: Results from previous steps
+- `item`: Current item in forEach loops
+- `secrets`: Configured secrets
+- Built-in functions like `zip()`, `range()`, etc.
+
+Use `{%-` and `-%}` to control whitespace in the output, where the `-` removes whitespace before or after the block.
+
+### Basic Syntax
+
+1. **Variable Interpolation**
+```yaml
+value: "{{ variable }}"
+```
+
+2. **Control Structures**
+```yaml
+# For loops
+{%- for item in items %}
+  {{ item }}
+{%- endfor %}
+
+# Conditional statements
+{%- if condition %}
+  {{ value }}
+{%- endif %}
+```
+
+3. **Accessing Step Results**
+```yaml
+value: "{{ steps.step_id.result }}"
+value: "{{ steps.step_id.result.content }}"
+```
+
+### Common Use Cases
+
+1. **Processing Lists**
+```yaml
+- id: process_items
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        items = []
+        {%- for item in steps.input_list.result %}
+        items.append({
+          "id": "{{item.id}}",
+          "value": "{{item.value}}"
+        })
+        {%- endfor %}
+    - name: data_type
+      value: "STRING"
+```
+
+2. **Conditional Logic**
+```yaml
+- id: conditional_step
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        {%- if steps.check.result.status == 'success' %}
+        print("Processing successful case")
+        {%- else %}
+        print("Handling error case")
+        {%- endif %}
+    - name: data_type
+      value: "STRING"
+```
+
+3. **Combining Multiple Lists**
+```yaml
+- id: combine_data
+  tool: PYTHON_SANDBOX_RUN
+  input:
+    - name: code
+      value: |-
+        results = []
+        {%- for item1, item2 in zip(list1, list2) %}
+        results.append(f"{item1}: {item2}")
+        {%- endfor %}
+    - name: data_type
+      value: "STRING"
+```
+
+### Common Patterns
+
+1. **Filtering Lists**
+```yaml
+{%- for item in items if item.status == 'active' %}
+{{ item.name }}
+{%- endfor %}
+```
+
+2. **Setting Default Values**
+```yaml
+{{ variable | default('default_value') }}
+```
+
+3. **String Manipulation**
+```yaml
+{{ variable | upper }}
+{{ variable | trim }}
+{{ variable | replace('old', 'new') }}
+```
+
+## Example Manifest
+
+Below is an example manifest that processes numerical data through multiple steps:
+
+``` yaml
+{- id: input_data
+  name: input_data
+  tool: INPUT_JSON
+  config: []
+  input:
+    - name: value
+      value: "[1, 2, 3, 4, 5]"
+
+- id: branch_a1
+  name: branch_a1
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        data = {{steps.input_data.result}}
+        result = sum([x for x in data if x % 2 == 0])
+        result  # even numbers sum
+  needs:
+    - input_data
+
+- id: branch_a2
+  name: branch_a2
+  tool: PYTHON_SANDBOX
+  config: []
+  input:
+    - name: code
+      value: |
+        result = {{steps.branch_a1.result.text}} * 2
+        result  # double the sum
+  needs:
+    - branch_a1}
+```
+
+## Breakdown of Each Step
+
+### 1. **Input Data (`input_data`)**
+   - Uses the `INPUT_JSON` tool to define an array of numbers `[1, 2, 3, 4, 5]`.
+
+### 2. **Branch A1 (`branch_a1`)**
+   - Uses `PYTHON_SANDBOX` to compute the sum of even numbers from `input_data`.
+   - Depends on `input_data`.
+
+### 3. **Branch A2 (`branch_a2`)**
+   - Doubles the result from `branch_a1`.
+   - Depends on `branch_a1`.
+
+### 4. **Branch B1 (`branch_b1`)**
+   - Computes the sum of odd numbers from `input_data`.
+   - Depends on `input_data`.

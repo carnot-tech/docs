@@ -1,0 +1,52 @@
+---
+title: 'Github'
+description: 'Automate Github tasks'
+icon: 'github'
+---
+
+
+## Overview
+The Github tools allow you to automate various tasks related to Github repositories, issues, and pull requests.
+
+## Key Features
+- `GITHUB_LIST_REPOSITORY_ISSUES`
+  - List issues in a specified repository.
+- `GITHUB_CREATE_AN_ISSUE`
+  - Create a new issue in a specified repository.
+
+
+## Authentication
+
+In your Github account, navigate to **Settings** > **Developer settings** > **Personal access tokens**. Generate a new token with the required scopes (e.g., `repo` for full control of private repositories).
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: List Issues and Create an Issue
+```yaml
+- name: List repository issues
+  id: list_repository_issues
+  tool: GITHUB_LIST_REPOSITORY_ISSUES
+  config:
+    - name: token
+      value: "{{secrets.GITHUB_TOKEN}}"
+  input:
+    - name: owner
+      value: nyuta01
+    - name: repository
+      value: cube-sl-demo
+- name: Create an issue
+  id: create_an_issue
+  tool: GITHUB_CREATE_AN_ISSUE
+  config:
+    - name: token
+      value: "{{secrets.GITHUB_TOKEN}}"
+  input:
+    - name: owner
+      value: nyuta01
+    - name: repository
+      value: cube-sl-demo
+    - name: title
+      value: Test issue
+    - name: body
+      value: This is a test issue
+```

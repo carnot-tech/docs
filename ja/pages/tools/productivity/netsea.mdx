@@ -1,0 +1,40 @@
+---
+title: 'Netsea'
+description: 'Netsea API と接続する'
+icon: 'cart-shopping'
+---
+
+## 概要
+Netsea は、多種多様な商品や仕入先にアクセスできるプラットフォームです。このツールを使用すると、Netsea API と接続して商品情報や仕入先の詳細を取得したり、在庫をプログラム上で管理したりできます。eコマース業務の自動化や生産性向上に役立ちます。
+
+## 主な機能
+- `NETSEA_GET_SUPPLIERS`
+  - Netsea プラットフォーム上の仕入先一覧を取得
+- `NETSEA_GET_CATEGORIES`
+  - Netsea プラットフォーム上の商品カテゴリ一覧を取得
+
+## 認証
+
+Netsea API を使用するには、バイヤー向けの API キーを設定する必要があります。[Netsea の公式サイト](https://netsea.jp/) でアカウントを作成し、API キーを生成してください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：仕入先とカテゴリの取得
+```yaml
+- id: get_suppliers
+  tool: NETSEA_GET_SUPPLIERS
+  config:
+    - name: token
+      value: "{{secrets.NETSEA_API_TOKEN}}"
+  input:
+    []
+- id: get_categories
+  tool: NETSEA_GET_CATEGORIES
+  config:
+    - name: token
+      value: "{{secrets.NETSEA_API_TOKEN}}"
+    - name: all_levels
+      value: false
+  input:
+    []
+```

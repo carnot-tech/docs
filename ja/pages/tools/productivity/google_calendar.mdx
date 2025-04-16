@@ -1,0 +1,54 @@
+---
+title: 'Google カレンダー'
+description: 'Google カレンダーのタスクを自動化する'
+icon: 'calendar'
+---
+
+## 概要
+Google カレンダー ツールを使用すると、イベントの作成、検索、カレンダー設定の管理など、Google カレンダーに関するさまざまなタスクを自動化できます。
+
+## 主な機能
+- `GOOGLE_CALENDAR_CREATE_EVENT`
+  - 指定したカレンダーに新しいイベントを作成
+- `GOOGLE_CALENDAR_FIND_EVENT`
+  - 指定した期間内でイベントを検索
+
+## 認証
+
+Google カレンダー API を使用するには、[Jinba シークレットダッシュボード](https://app.jinba.io/workspace/secrets) にアクセスし、Google アカウントで認証してください。これにより、新しい OAuth トークンが生成されます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：イベントの検索と作成
+```yaml
+- id: find_event
+  tool: GOOGLE_CALENDAR_FIND_EVENT
+  config:
+    - name: token
+      value: ""
+  input:
+    - name: calendar_id
+      value: primary
+    - name: time_min
+      value: 2025-01-01T00:00:00Z
+    - name: time_max
+      value: 2025-01-03T00:00:00Z
+    - name: query
+      value: yuta.n@carnot.ai
+- id: create_event
+  tool: GOOGLE_CALENDAR_CREATE_EVENT
+  config:
+    - name: token
+      value: ""
+  input:
+    - name: calendar_id
+      value: primary
+    - name: summary
+      value: Test Event
+    - name: description
+      value: This is a test event
+    - name: start
+      value: "{'dateTime': '2025-01-01T00:00:00Z'}"
+    - name: end
+      value: "{'dateTime': '2025-01-01T01:00:00Z'}"
+```

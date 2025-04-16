@@ -1,0 +1,42 @@
+---
+title: 'Netsea'
+description: 'Connect to the Netsea API'
+icon: 'cart-shopping'
+---
+
+
+## Overview
+Netsea is a platform that provides access to a wide range of products and suppliers. This tool allows you to connect with the Netsea API, enabling you to retrieve product information, supplier details, and manage your inventory programmatically. This integration is useful for automating workflows and enhancing productivity within your e-commerce operations.
+
+## Key Features
+- `NETSEA_GET_SUPPLIERS`
+  - Retrieve a list of suppliers from the Netsea platform.
+- `NETSEA_GET_CATEGORIES`
+  - Retrieve a list of product categories from the Netsea platform.
+
+
+## Authentication
+
+To use the Netsea API, you need to set up an API key for buyers. You can sign up up for an account on the [Netsea website](https://netsea.jp/) and generate your API key.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Get Suppliers and Categories
+```yaml
+- id: get_suppliers
+  tool: NETSEA_GET_SUPPLIERS
+  config:
+    - name: token
+      value: "{{secrets.NETSEA_API_TOKEN}}"
+  input:
+    []
+- id: get_categories
+  tool: NETSEA_GET_CATEGORIES
+  config:
+    - name: token
+      value: "{{secrets.NETSEA_API_TOKEN}}"
+    - name: all_levels
+      value: false
+  input:
+    []
+```

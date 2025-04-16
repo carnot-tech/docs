@@ -1,0 +1,70 @@
+---
+title: 'LINE'
+description: 'LINE メッセージングビジネスプラットフォームツール'
+icon: 'line'
+---
+
+## 概要
+LINE ツールを使用すると、LINE メッセージングプラットフォームと連携できます。メッセージの送信、ユーザープロフィールの取得、メッセージの一斉送信など、さまざまな機能を提供します。
+
+## 主な機能
+- `LINE_SEND_MESSAGE`
+  - ユーザーにメッセージを送信
+- `LINE_GET_PROFILE`
+  - ユーザープロフィール情報の取得
+- `LINE_BROADCAST_MESSAGE`
+  - すべてのユーザーへの一斉メッセージ送信
+- `LINE_GET_FRIENDS_COUNT`
+  - 特定の日付の友だち数を取得
+- `LINE_GET_DEMOGRAPHIC`
+  - ユーザーの属性情報を取得
+
+## 認証
+
+LINE ツールを使用するには、LINE Messaging API のチャネルアクセストークンが必要です。[LINE Developers Console](https://developers.line.biz/console) にてチャネルを作成し、トークンを取得してください。チャネルの設定およびトークンの取得方法は開発者ドキュメントに従ってください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：メッセージの送信と情報取得
+```yaml
+- id: send_message
+  tool: LINE_SEND_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: to
+      value: U01540d1f26358ff37497dbaaef66cc64
+    - name: message
+      value: Hello from LINE Bot!
+- id: get_profile
+  tool: LINE_GET_PROFILE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: user_id
+      value: U01540d1f26358ff37497dbaaef66cc64
+- id: broadcast_message
+  tool: LINE_BROADCAST_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: message
+      value: Hello everyone! This is a broadcast message.
+- id: get_friends_count
+  tool: LINE_GET_FRIENDS_COUNT
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: date
+      value: "20250329"
+- id: get_demographic
+  tool: LINE_GET_DEMOGRAPHIC
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input: []
+```

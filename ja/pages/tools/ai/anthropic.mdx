@@ -1,0 +1,33 @@
+---
+title: 'Anthropic'
+description: 'Claude からの応答を呼び出す'
+icon: 'robot'
+---
+
+## 概要
+Anthropic ツールを使用すると、Claude AI モデルと対話できます。プロンプトを送信し、応答を受け取るためのシンプルなインターフェースを提供します。
+
+## 主な機能
+- `ANTHROPIC_INVOKE`
+  - Claude AI へのプロンプト送信
+  - JSON 形式での構造化された応答の受信
+
+## 認証
+
+Anthropic の API キーを取得するには、[公式Anthropicサイト](https://www.anthropic.com/) に登録し、開発者向けドキュメントに従ってください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Claude に質問する
+```yaml
+- id: claude
+  tool: ANTHROPIC_INVOKE
+  config:
+    - name: version
+      value: claude-3-7-sonnet-20250219
+    - name: token
+      value: "{{secrets.ANTHROPIC_API_KEY}}"
+  input:
+    - name: prompt
+      value: フランスの首都は何ですか？
+```

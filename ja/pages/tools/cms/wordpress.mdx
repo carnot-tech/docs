@@ -1,0 +1,43 @@
+---
+title: 'Wordpress'
+description: 'Wordpress に新しい記事を投稿する'
+icon: 'wordpress'
+---
+
+## 概要
+Wordpress ツールを使うと、Wordpress サイトに記事を作成して公開できます。HTML や Markdown など、さまざまなコンテンツ形式に対応しており、記事のステータス（下書きまたは公開）も指定可能です。
+
+## 主な機能
+- `WORDPRESS_POST_ARTICLE`
+  - Wordpress に記事を作成・投稿
+  - HTML や Markdown などのコンテンツ形式をサポート
+  - 下書きまたは公開のステータスを選択可能
+
+## 認証
+
+Wordpress サイトを設定した後、認証用のアプリケーションパスワードを作成する必要があります。これは Wordpress の管理パネルから作成できます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：新しい記事を作成する
+```yaml
+- id: wordpress
+  name: Post Article
+  tool: WORDPRESS_POST_ARTICLE
+  config:
+    - name: url
+      value: https://sample.wordpress.com/
+    - name: username
+      value: admin
+    - name: password
+      value: "{{secrets.WORDPRESS_APPLICATION_PASSWORD}}"
+  input:
+    - name: content
+      value: |-
+        <h1>Hello World</h1>
+        <p>This is a sample post.</p>
+    - name: draft
+      value: false
+    - name: title
+      value: Test
+```

@@ -1,0 +1,72 @@
+---
+title: 'LINE'
+description: 'LINE messaging business platform tools'
+icon: 'line'
+---
+
+
+## Overview
+LINE tools allow you to interact with the LINE messaging platform. It provides functionalities for sending messages, retrieving user profiles, broadcasting messages, and more.
+
+## Key Features
+- `LINE_SEND_MESSAGE`
+  - Send messages to users
+- `LINE_GET_PROFILE`
+  - Retrieve user profile information
+- `LINE_BROADCAST_MESSAGE`
+  - Broadcast messages to all users
+- `LINE_GET_FRIENDS_COUNT`
+  - Get the number of friends for a specific date
+- `LINE_GET_DEMOGRAPHIC`
+  - Get demographic information of users
+
+## Authentication
+
+To use the LINE tools, you need a LINE Messaging API channel access token. You can create a channel and obtain the token from the [LINE Developers Console](https://developers.line.biz/console). Follow the instructions in the developer documentation to set up your channel and get the token.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Sending and Retrieving Messages
+```yaml
+- id: send_message
+  tool: LINE_SEND_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: to
+      value: U01540d1f26358ff37497dbaaef66cc64
+    - name: message
+      value: Hello from LINE Bot!
+- id: get_profile
+  tool: LINE_GET_PROFILE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: user_id
+      value: U01540d1f26358ff37497dbaaef66cc64
+- id: broadcast_message
+  tool: LINE_BROADCAST_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: message
+      value: Hello everyone! This is a broadcast message.
+- id: get_friends_count
+  tool: LINE_GET_FRIENDS_COUNT
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    - name: date
+      value: "20250329"
+- id: get_demographic
+  tool: LINE_GET_DEMOGRAPHIC
+  config:
+    - name: token
+      value: "{{secrets.LINE_API.channel_access_token}}"
+  input:
+    []
+```

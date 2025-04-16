@@ -1,0 +1,28 @@
+---
+title: 'YouTube トランスクリプト'
+description: 'YouTube 動画の字幕を取得する'
+icon: 'youtube'
+---
+
+## 概要
+YouTube Transcript ツールを使用すると、YouTube 動画の字幕（トランスクリプト）を取得できます。動画内の音声内容を抽出することで、分析や後からの参照がしやすくなります。
+
+## 主な機能
+- `YOUTUBE_GET_TRANSCRIPT`
+  - YouTube 動画の字幕を取得
+  - 複数言語に対応、タイムスタンプの有無も選択可能
+
+### 例：YouTube 字幕を取得する
+```yaml
+- id: get_transcript
+  name: get_transcript
+  tool: YOUTUBE_GET_TRANSCRIPT
+  config: []
+  input:
+    - name: video_id
+      value: Rzlr2tNSl0U
+    - name: lang
+      value: en
+    - name: timestamps
+      value: false
+```

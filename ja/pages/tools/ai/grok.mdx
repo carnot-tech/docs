@@ -1,0 +1,34 @@
+---
+title: 'Grok'
+description: 'Grok からの応答を呼び出す'
+icon: 'robot'
+---
+
+## 概要
+Grok ツールを使用すると、Grok AI モデルと対話できます。プロンプトを送信し、応答を受け取るためのシンプルなインターフェースを提供します。
+
+## 主な機能
+- `GROK_CHAT`
+  - Grok AI にプロンプトを送信
+
+## 認証
+
+API キーがない場合でも、Jinba の API クレジットを使用して Grok ツールを実行できます。自身の API キーを使用したい場合は、[公式 Grok サイト](https://x.ai/api) から取得し、開発者向けドキュメントに従ってください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：画像解析とスプレッドシート出力
+```yaml
+- id: grok_chat
+  tool: GROK_CHAT
+  input:
+    - name: system_prompt
+      value: あなたはアシスタントです
+    - name: model
+      value: grok-2-latest
+    - name: prompt
+      value: なぜ私はここにいるのか
+  config:
+    - name: api_key
+      value: "{{secrets.GROK_CHAT}}"
+```

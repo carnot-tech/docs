@@ -1,0 +1,35 @@
+---
+title: 'Grok'
+description: 'Invoke responses from Grok'
+icon: 'robot'
+---
+
+
+## Overview
+The Grok tool allows you to interact with the Grok AI model. It provides a simple interface to send prompts and receive responses.
+
+## Key Features
+- `GROK_CHAT`
+  - Send prompts to Grok AI
+
+## Authentication
+
+If you do not have an API key, you can still run Grok tools by using Jinba API credit. If you'd like to use your own API key, you can obtain one from the [official Grok website](https://x.ai/api) and follow the developer documentation.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Image Analysis and Spreadsheet Export
+```yaml
+- id: grok_chat
+  tool: GROK_CHAT
+  input:
+    - name: system_prompt
+      value: You're an assistant
+    - name: model
+      value: grok-2-latest
+    - name: prompt
+      value: why am I here
+  config:
+    - name: api_key
+      value: "{{secrets.GROK_CHAT}}"
+```

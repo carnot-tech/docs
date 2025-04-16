@@ -1,0 +1,32 @@
+---
+title: 'Perplexity'
+description: 'Perplexity を使ってウェブ検索を行う'
+icon: 'searchengin'
+---
+
+## 概要
+Perplexity ツールを使用すると、AI とウェブ検索の力を活用して、素早く正確な情報検索が可能です。質問への回答、要約などにも対応しています。
+
+## 主な機能
+- `PERPLEXITY_SEARCH`
+  - クエリ文字列を使ってウェブ情報を検索
+  - 入力に基づいて関連する結果を取得
+  - 質問への回答や要約などの生成も可能
+
+## 認証
+
+Perplexity の API キーがない場合でも、Jinba の API クレジットを使って Perplexity ツールを実行できます。独自の API キーを使用したい場合は、[公式 Perplexity サイト](https://www.perplexity.ai/) から取得してください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Perplexity 検索を実行する
+```yaml
+- id: perplexity_search
+  tool: PERPLEXITY_SEARCH
+  config:
+    - name: api_key
+      value: "{{secrets.PERPLEXITY_API_KEY}}"
+  input:
+    - name: query
+      value: What is the capital of France?
+```

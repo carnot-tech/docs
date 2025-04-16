@@ -1,0 +1,51 @@
+---
+title: 'Teradata'
+description: 'Run queries on Teradata'
+icon: 'database'
+---
+
+
+## Overview
+The Teradata tool allows you to run SQL queries on a Teradata database.
+
+## Key Features
+- `TERADATA_RUN_QUERY`
+  - Execute SQL queries on a Teradata database.
+  - Retrieve results in a structured format.
+
+
+## Authentication
+
+You will need knowledge of your Teradata database credentials, including the host, user, and password.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Run Teradata Query
+```yaml
+- id: run_query
+  tool: TERADATA_RUN_QUERY
+  config:
+    - name: host
+      value: 100.21.165.28
+    - name: user
+      value: carnot
+    - name: password
+      value: carnot#123
+  input:
+    - name: query
+      value: "
+
+        \          with examples as (
+
+        \              select 1 as id, 'jon' as name
+
+        \              union all
+
+        \              select 2 as id, 'jane' as name
+
+        \          )
+
+        \          select * from examples;
+
+        \          "
+```

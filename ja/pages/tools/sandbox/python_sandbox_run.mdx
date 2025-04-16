@@ -1,0 +1,38 @@
+---
+title: 'Python サンドボックス'
+description: 'サンドボックス環境で Python コードを実行する'
+icon: 'python'
+---
+
+## 概要
+Python Sandbox ツールを使用すると、サンドボックス化された安全な環境で Python コードを実行できます。柔軟かつ高度な処理を安全に行うのに適しています。
+
+## 主な機能
+- `PYTHON_SANDBOX_RUN`
+  - サンドボックス環境で Python コードを実行
+  - 設定で追加のパッケージやライブラリを利用可能
+
+### 例：ステップ結果のマージを Python で行う
+```yaml
+- id: input1
+  name: Input 1
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: "1"
+- id: input2
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: "2"
+- id: merge
+  tool: PYTHON_SANDBOX_RUN
+  needs:
+    - input1
+    - input2
+  input:
+    - name: code
+      value: int("{{steps.input1.result}}") + int("{{steps.input2.result}}")
+    - name: data_type
+      value: NUMBER
+```

@@ -1,0 +1,74 @@
+---
+title: 'Notion'
+description: 'Automate a Notion Workspace'
+icon: 'pen-to-square'
+---
+
+
+## Overview
+The Notion tools allow you to automate various tasks related to Notion workspaces, including creating and managing pages, databases, and blocks. You can also extract information from Notion pages and databases.
+
+## Key Features
+- `NOTION_CREATE_PAGE`
+  - Create a new page in a specified Notion workspace.
+- `NOTION_CREATE_DATABASE_ITEM`
+  - Create a new item in a specified Notion database.
+- `NOTION_RETRIEVE_A_PAGE`
+  - Retrieve a page from a specified Notion workspace.
+- `NOTION_RETRIEVE_DATABASE`
+  - Retrieve a database from a specified Notion workspace.
+
+
+## Authentication
+
+To use the Notion API, you need to create an integration in your Notion workspace. Follow these steps:
+1. Go to [Notion Developers](https://www.notion.so/my-integrations).
+2. Click on "New Integration".
+3. Fill in the required details and select the workspace you want to connect.
+4. After creating the integration, you will receive an "Internal Integration Token". This token is used to authenticate your requests to the Notion API.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Create and Retrieve Pages and Databases
+```yaml
+- id: retrieve_page
+  tool: NOTION_RETRIEVE_A_PAGE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: page_id
+      value: 15cf9fcee23b81e193f7cb5774043b82
+- id: retrieve_database
+  tool: NOTION_RETRIEVE_DATABASE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: database_id
+      value: 16ff9fcee23b80d38b47d754dcaffe16
+- id: create_page
+  tool: NOTION_CREATE_PAGE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: parent_page_id
+      value: 196bf44b5f624485a29f415bf4afac47
+    - name: title
+      value: Test Page
+    - name: content
+      value: This is a test page
+- id: create_database_item
+  tool: NOTION_CREATE_DATABASE_ITEM
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: database_id
+      value: 16ff9fcee23b80d38b47d754dcaffe16
+    - name: title
+      value: Test Page
+    - name: content
+      value: This is a test page
+```

@@ -1,0 +1,33 @@
+---
+title: 'Exa AI'
+description: 'Search the web using Exa AI'
+icon: 'searchengin'
+---
+
+
+## Overview
+The Exa AI tool allows you to search the web using Exa AI's capabilities. It provides a simple interface to query the web and retrieve relevant information based on your input.
+
+## Key Features
+- `EXAAI_SEARCH`
+  - Search for information on the web using a query string.
+  - Retrieve relevant results based on your input.
+
+
+## Authentication
+
+If you do not have an Exa AI API key, you can still run Exa AI tools by using Jinba API credit. If you'd like to use your own API key, you can obtain one from the [official Exa AI website](https://exa.ai/).
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Run Exa AI Search
+```yaml
+- id: search
+  tool: EXAAI_SEARCH
+  config:
+    - name: exaApiKey
+      value: "{{secrets.EXAAI_API_KEY}}"
+  input:
+    - name: query
+      value: find blog posts about AGI
+```

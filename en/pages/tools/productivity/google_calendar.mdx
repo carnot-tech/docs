@@ -1,0 +1,55 @@
+---
+title: 'Google Calendar'
+description: 'Automate Google Calendar tasks'
+icon: 'calendar'
+---
+
+
+## Overview
+The Google Calendar tools allow you to automate various tasks related to Google Calendar, such as creating events, finding events, and managing calendar settings.
+
+## Key Features
+- `GOOGLE_CALENDAR_CREATE_EVENT`
+  - Create a new event in a specified calendar.
+- `GOOGLE_CALENDAR_FIND_EVENT`
+  - Find events in a specified calendar within a given time range.
+
+## Authentication
+
+To use the Google Calendar API, you need navigate to the [Jinba secrets dashboard](https://app.jinba.io/workspace/secrets) and authenticate with your Google account. This will create a new OAuth token for you.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Create and Find Events
+```yaml
+- id: find_event
+  tool: GOOGLE_CALENDAR_FIND_EVENT
+  config:
+    - name: token
+      value: ""
+  input:
+    - name: calendar_id
+      value: primary
+    - name: time_min
+      value: 2025-01-01T00:00:00Z
+    - name: time_max
+      value: 2025-01-03T00:00:00Z
+    - name: query
+      value: yuta.n@carnot.ai
+- id: create_event
+  tool: GOOGLE_CALENDAR_CREATE_EVENT
+  config:
+    - name: token
+      value: ""
+  input:
+    - name: calendar_id
+      value: primary
+    - name: summary
+      value: Test Event
+    - name: description
+      value: This is a test event
+    - name: start
+      value: "{'dateTime': '2025-01-01T00:00:00Z'}"
+    - name: end
+      value: "{'dateTime': '2025-01-01T01:00:00Z'}"
+```

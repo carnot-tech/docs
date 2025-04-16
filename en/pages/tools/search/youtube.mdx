@@ -1,0 +1,29 @@
+---
+title: 'YouTube Transcript'
+description: 'Get YouTube video transcripts'
+icon: 'youtube'
+---
+
+
+## Overview
+The YouTube Transcript tool allows you to retrieve transcripts for YouTube videos. This can be useful for extracting spoken content from videos, making it easier to analyze or reference later.
+
+## Key Features
+- `YOUTUBE_GET_TRANSCRIPT`
+  - Retrieve transcripts for YouTube videos.
+  - Supports multiple languages and options for timestamps.
+
+### Example: Get YouTube Transcript
+```yaml
+- id: get_transcript
+  name: get_transcript
+  tool: YOUTUBE_GET_TRANSCRIPT
+  config: []
+  input:
+    - name: video_id
+      value: Rzlr2tNSl0U
+    - name: lang
+      value: en
+    - name: timestamps
+      value: false
+```

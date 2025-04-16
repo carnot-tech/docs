@@ -1,0 +1,71 @@
+---
+title: 'Discord'
+description: 'Discord ボットとの統合'
+icon: 'discord'
+---
+
+## 概要
+Discord ツールを使用すると、Discord ボットと連携してメッセージの送信、チャンネルからのメッセージ取得、リアクションの追加、ユーザー情報の取得が可能になります。Discord サーバーとの自動化されたやり取りに便利です。
+
+## 主な機能
+- `DISCORD_SEND_MESSAGE`
+  - Discord チャンネルへのメッセージ送信
+- `DISCORD_GET_CHANNEL_MESSAGES`
+  - 特定のチャンネルからメッセージを取得
+  - フィルタリングに対応
+- `DISCORD_ADD_REACTION`
+  - メッセージへのリアクション追加
+- `DISCORD_GET_USER_INFO`
+  - ユーザー情報の取得（例：ロール、権限）
+
+## 認証
+
+Discord ツールを使用するには、Discord ボットトークンが必要です。ボットは [Discord Developer Portal](https://discord.com/developers/applications) で作成でき、トークンもそこで取得できます。開発者ドキュメントの手順に従ってボットを設定し、トークンを取得してください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：メッセージの送信・取得・リアクション追加・ユーザー情報取得
+```yaml
+- id: send_message
+  tool: DISCORD_SEND_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: channel_id
+      value: "{{secrets.CHANNEL_ID}}"
+    - name: content
+      value: Hello from Discord Bot!
+- id: get_messages
+  tool: DISCORD_GET_CHANNEL_MESSAGES
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: channel_id
+      value: "123456789012345678"
+    - name: limit
+      value: 5
+- id: add_reaction
+  tool: DISCORD_ADD_REACTION
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  needs:
+    - get_messages
+  input:
+    - name: channel_id
+      value: "{{secrets.CHANNEL_ID}}"
+    - name: message_id
+      value: "{{steps.get_messages.result[0].id}}"
+    - name: emoji
+      value: 👍
+- id: get_user_info
+  tool: DISCORD_GET_USER_INFO
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: user_id
+      value: "{{secrets.USER_ID}}"
+```

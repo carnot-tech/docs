@@ -1,0 +1,26 @@
+---
+title: 'Markitdown Convert'
+description: 'Convert a URL to Markdown'
+icon: 'markdown'
+---
+
+
+## Overview
+The Markitdown Convert tool allows you to convert a URL's HTML content to Markdown format. This is useful for generating Markdown documentation or notes from web pages, making it easier to share and edit content in Markdown format.
+
+## Key Features
+- `MARKITDOWN_CONVERT`
+  - Convert a URL's HTML content to Markdown format.
+  - Supports various options for customization, such as including or excluding certain elements.
+
+
+### Example: Convert URL to Markdown
+```yaml
+name: Convert Markdown
+steps:
+  - id: convert
+    tool: MARKITDOWN_CONVERT
+    input:
+      - name: url
+        value: https://go.microsoft.com/fwlink/?LinkID=521962
+```

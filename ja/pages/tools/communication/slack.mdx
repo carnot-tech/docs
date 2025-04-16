@@ -1,0 +1,44 @@
+---
+title: 'Slack'
+description: 'Slack メッセージングビジネスプラットフォームツール'
+icon: 'slack'
+---
+
+## 概要
+Slack ツールを使用すると、Slack メッセージングプラットフォームと連携できます。メッセージの送信、スレッド内の返信取得、一斉送信など、さまざまな機能を提供します。
+
+## 主な機能
+- `SLACK_POST_MESSAGE`
+  - ユーザーまたはチャンネルへのメッセージ送信
+- `SLACK_GET_CONVERSATION_REPLIES`
+  - チャンネル内の特定のスレッドに対する返信を取得
+
+## 認証
+
+Slack ツールを使用するには、Slack アプリを作成し、Bot User OAuth アクセストークンを取得する必要があります。[Slack API サイト](https://api.slack.com/apps) でアプリを作成し、トークンを取得してください。セットアップ手順は開発者ドキュメントに従ってください。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：メッセージの送信と返信の取得
+```yaml
+- id: get_conversation_replies
+  tool: SLACK_GET_CONVERSATION_REPLIES
+  config:
+    - name: token
+      value: "{{secrets.SLACK_BOT_TOKEN}}"
+  input:
+    - name: channel
+      value: "#jinba-dev-tmp"
+    - name: thread_ts
+      value: "1738331888.564969"
+- id: send_message
+  tool: SLACK_POST_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.SLACK_BOT_TOKEN}}"
+  input:
+    - name: text
+      value: Hello, world!
+    - name: channel
+      value: "#900_tl_yuta"
+```

@@ -1,0 +1,44 @@
+---
+title: 'Wordpress'
+description: 'Make a new article on Wordpress'
+icon: 'wordpress'
+---
+
+
+## Overview
+The Wordpress tool lets you create and publish articles on a Wordpress site. It supports various content formats and allows you to set the status of the article (draft or published).
+
+## Key Features
+- `WORDPRESS_POST_ARTICLE`
+  - Create and publish articles on Wordpress
+  - Supports various content formats (e.g., HTML, Markdown)
+  - Options for draft or published status
+
+## Authentication
+
+After setting up your Wordpress site, you need to create an application password for authentication. This is done through the Wordpress admin panel.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Creating a New Article
+```yaml
+- id: wordpress
+  name: Post Article
+  tool: WORDPRESS_POST_ARTICLE
+  config:
+    - name: url
+      value: https://sample.wordpress.com/
+    - name: username
+      value: admin
+    - name: password
+      value: "{{secrets.WORDPRESS_APPLICATION_PASSWORD}}"
+  input:
+    - name: content
+      value: |-
+        <h1>Hello World</h1>
+        <p>This is a sample post.</p>
+    - name: draft
+      value: false
+    - name: title
+      value: Test
+```

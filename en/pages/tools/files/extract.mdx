@@ -1,0 +1,39 @@
+---
+title: 'Extract from File'
+description: 'Extract information from files using their base64 representation'
+icon: 'file'
+---
+
+
+## Overview
+The File Extraction tools allow you to extract information from files using their base64 representation. This is particularly useful for analyzing images or documents where you need to extract text or other relevant data.
+
+## Key Features
+- `PDF_EXTRACT_TEXT`: Extract text from PDF files.
+- `DOCX_EXTRACT_TEXT`: Extract text from DOCX files.
+- `EXCEL_EXTRACT_TEXT`: Extract structured data from Excel files.
+
+### Example: Extract Data from Base64 Files
+```yaml
+- id: extract_pdf
+  tool: PDF_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: pdf_base64
+      value: "{{secrets.PDF_FILE_BASE64}}"
+- id: extract_docx
+  tool: DOCX_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: docx_base64
+      value: "{{secrets.DOCX_FILE_BASE64}}"
+- id: extract_pdf
+  tool: PDF_EXTRACT_TEXT
+  config:
+    []
+  input:
+    - name: pdf_base64
+      value: "{{secrets.PDF_FILE_BASE64}}"
+```

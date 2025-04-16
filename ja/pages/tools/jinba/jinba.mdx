@@ -1,0 +1,46 @@
+---
+title: 'Jinba フロー'
+description: 'Jinba フローを実行する'
+icon: 'cloud'
+---
+
+## 概要
+Jinba Flow ツールを使うことで、Jinba 上で公開されたフローを別のフロー内から実行できます。
+
+## 主な機能
+- `JINBA_FLOW_RUN`
+  - フロー ID と必要な引数を指定して、Jinba フローを実行
+
+## 認証
+
+フローを公開した後、そのフローの URL とシークレットを控えておくことで、このツールまたは Web からリクエストを送信できます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：他の Jinba フローを実行する
+```yaml
+- name: Run flow
+  id: run_flow
+  tool: JINBA_FLOW_RUN
+  config:
+    - name: token
+      value: "{{secrets.JINBA_FLOW_TOKEN}}"
+    - name: base_url
+      value: "{{secrets.JINBA_FLOW_BASE_URL}}"
+  input:
+    - name: id
+      value: ecd528ac-fc53-44ad-8535-7051507e4958
+- name: Run flow with args
+  id: run_flow_with_args
+  tool: JINBA_FLOW_RUN
+  config:
+    - name: token
+      value: "{{secrets.JINBA_FLOW_TOKEN}}"
+    - name: base_url
+      value: "{{secrets.JINBA_FLOW_BASE_URL}}"
+  input:
+    - name: id
+      value: ecd528ac-fc53-44ad-8535-7051507e4958
+    - name: args
+      value: '[{"name":"input_1","value":"Hello, world!"}]'
+```

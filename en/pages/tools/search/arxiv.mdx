@@ -1,0 +1,23 @@
+---
+title: 'Arxiv Agent'
+description: 'Search and retrieve papers from arXiv'
+icon: 'book-open'
+---
+
+
+## Overview
+The Arxiv Agent tool allows you to search and retrieve papers from the arXiv repository. It provides a simple interface to query the database and fetch relevant research papers based on your input.
+
+## Key Features
+- `ARXIV_INVOKE_AGENT`
+  - Search for papers on arXiv using a query string.
+  - Retrieve metadata and content of the papers.
+
+### Example: Search for Papers
+```yaml
+- id: invoke_arxiv_agent
+  tool: ARXIV_INVOKE_AGENT
+  input:
+    - name: query
+      value: What's the paper 1605.08386 about?
+```

@@ -1,0 +1,56 @@
+---
+title: 'Output JSON with Validation'
+description: 'Validate your JSON output against a schema'
+icon: 'square-check'
+---
+
+
+## Overview
+The JSON Output Validation tool allows you to validate the output of your JSON data against a specified schema. This ensures that the output meets the expected structure and data types, helping to catch errors early in the process.
+
+## Key Features
+- `OUTPUT_JSON_WITH_VALIDATION`
+  - Validate your JSON output against a schema.
+  - Ensure that the output meets the specified structure and data types.
+
+
+### Example: Validate JSON Output
+```yaml
+- id: success
+  tool: OUTPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
+  input:
+    - name: value
+      value: '{"name": "John", "age": 30}'
+- id: failure
+  tool: OUTPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "age": { "type": "number" }
+                    },
+                    "required": ["name", "age"]
+                  }
+  input:
+    - name: value
+      value: '{"name": "John"}'
+- id: no_schema
+  tool: OUTPUT_JSON_WITH_VALIDATION
+  input:
+    - name: value
+      value: '{"name": "John"}'
+```

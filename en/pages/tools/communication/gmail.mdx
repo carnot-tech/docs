@@ -1,0 +1,67 @@
+---
+title: 'Gmail'
+description: 'Email operations using Gmail API'
+icon: 'envelope'
+---
+
+## Overview
+
+These tools provide functionality for email management using the Gmail API.
+
+## Key Features
+
+- `GMAIL_LIST_MESSAGES`
+  - List messages in the user's mailbox
+- `GMAIL_GET_MESSAGE`
+  - Retrieve a specific message by ID
+- `GMAIL_SEND_MESSAGE`
+  - Send an email message
+  - Supports sending as a draft or directly to the recipient
+
+## Authentication
+
+To use the Gmail API, you need navigate to the [Jinba secrets dashboard](https://app.jinba.io/workspace/secrets) and authenticate with your Google account. This will create a new OAuth token for you.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: List, Get, and Send Messages
+```yaml
+- id: list_messages
+  tool: GMAIL_LIST_MESSAGES
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: user_id
+      value: me
+- id: get_message
+  tool: GMAIL_GET_MESSAGE
+  needs:
+    - list_messages
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: id
+      value: "{{steps.list_messages.result.messages[0].id}}"
+    - name: user_id
+      value: me
+- id: send_message
+  tool: GMAIL_SEND_MESSAGE
+  needs:
+    - get_message
+  config:
+    - name: token
+      value: "{{secrets.GMAIL_OAUTH_TOKEN}}"
+  input:
+    - name: as_draft
+      value: true
+    - name: user_id
+      value: me
+    - name: to_email
+      value: test@example.com
+    - name: subject
+      value: test draft
+    - name: body
+      value: draft
+```

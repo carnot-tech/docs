@@ -1,0 +1,34 @@
+---
+title: 'Anthropic'
+description: 'Invoke responses from Claude'
+icon: 'robot'
+---
+
+
+## Overview
+The Anthropic tool allows you to interact with the Claude AI model. It provides a simple interface to send prompts and receive responses.
+
+## Key Features
+- `ANTHROPIC_INVOKE`
+  -Send prompts to Claude AI
+  - Receive structured responses via JSON
+
+## Authentication
+
+To get an Anthropic API key, please sign up at the [official Anthropic website](https://www.anthropic.com/) and follow the developer documentaiton.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Asking Claude a Question
+```yaml
+- id: claude
+  tool: ANTHROPIC_INVOKE
+  config:
+    - name: version
+      value: claude-3-7-sonnet-20250219
+    - name: token
+      value: "{{secrets.ANTHROPIC_API_KEY}}"
+  input:
+    - name: prompt
+      value: What is the capital of France?
+```

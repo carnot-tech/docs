@@ -1,0 +1,36 @@
+---
+title: '出力 JSON（バリデーション付き）'
+description: 'JSON 出力をスキーマに基づいて検証する'
+icon: 'square-check'
+---
+
+## 概要
+このツールを使用すると、JSON データの出力を指定されたスキーマに基づいて検証できます。出力が期待される構造やデータ型に適合しているかどうかをチェックし、処理の初期段階でエラーを防ぐのに役立ちます。
+
+## 主な機能
+- `OUTPUT_JSON_WITH_VALIDATION`
+  - JSON 出力をスキーマに基づいて検証
+  - 出力の構造やデータ型が正しいかを確認
+
+### 例：JSON 出力をバリデートする
+```yaml
+- id: success
+  tool: OUTPUT_JSON_WITH_VALIDATION
+  config:
+    - name: schema
+      value: |-
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "age": { "type": "number" }
+          },
+          "required": ["name", "age"]
+        }
+  input:
+    - name: value
+      value: '{"name": "John", "age": 30}'
+
+- id: failure
+  tool
+```

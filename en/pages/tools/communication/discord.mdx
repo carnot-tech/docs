@@ -1,0 +1,72 @@
+---
+title: 'Discord'
+description: 'Integrate with a Discord Bot'
+icon: 'discord'
+---
+
+
+## Overview
+The Discord tools allows you to integrate with a Discord bot, enabling you to send messages, retrieve messages from channels, add reactions, and fetch user information. This is useful for automating interactions with Discord servers.
+
+## Key Features
+- `DISCORD_SEND_MESSAGE`
+  - Send messages to Discord channels
+- `DISCORD_GET_CHANNEL_MESSAGES`
+  - Retrieve messages from a specific channel
+  - Supports filtering
+- `DISCORD_ADD_REACTION`
+  - Add reactions to messages
+- `DISCORD_GET_USER_INFO`
+  - Fetch user information (e.g. roles, permissions)
+
+## Authentication
+
+To use the Discord tool, you need a Discord bot token. You can create a bot and obtain the token from the [Discord Developer Portal](https://discord.com/developers/applications). Follow the instructions in the developer documentation to set up your bot and get the token.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Fetching and Sending Messages, Adding Reactions, and Getting User Info
+```yaml
+- id: send_message
+  tool: DISCORD_SEND_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: channel_id
+      value: "{{secrets.CHANNEL_ID}}"
+    - name: content
+      value: Hello from Discord Bot!
+- id: get_messages
+  tool: DISCORD_GET_CHANNEL_MESSAGES
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: channel_id
+      value: "123456789012345678"
+    - name: limit
+      value: 5
+- id: add_reaction
+  tool: DISCORD_ADD_REACTION
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  needs:
+    - get_messages
+  input:
+    - name: channel_id
+      value: "{{secrets.CHANNEL_ID}}"
+    - name: message_id
+      value: "{{steps.get_messages.result[0].id}}"
+    - name: emoji
+      value: 👍
+- id: get_user_info
+  tool: DISCORD_GET_USER_INFO
+  config:
+    - name: token
+      value: "{{secrets.DISCORD_BOT_TOKEN}}"
+  input:
+    - name: user_id
+      value: "{{secrets.USER_ID}}"
+```

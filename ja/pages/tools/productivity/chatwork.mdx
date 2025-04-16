@@ -1,0 +1,96 @@
+---
+title: 'Chatwork'
+description: 'Chatwork API と接続する'
+icon: 'comment'
+---
+
+## 概要
+Chatwork ツールを使うと、Chatwork API に接続してメッセージ送信、タスク作成、アカウント管理などをプログラムで実行できます。この統合により、ワークフローの自動化やチームの生産性向上が可能になります。
+
+## 主な機能
+- `CHATWORK_SEND_MESSAGE`
+  - Chatwork の特定のルームにメッセージを送信
+- `CHATWORK_GET_MESSAGES`
+  - 特定のルームからメッセージを取得
+- `CHATWORK_CREATE_TASK`
+  - 特定のルームにタスクを作成
+- `CHATWORK_GET_TASKS`
+  - 特定のルームからタスクを取得
+- `CHATWORK_UPDATE_TASK_STATUS`
+  - 特定のタスクのステータスを更新
+
+## 認証
+
+Chatwork API を使用するには、[Chatwork Developer Platform](https://developer.chatwork.com/) にて開発者アカウントを作成し、API キーを発行する必要があります。これにより、リクエストの認証に必要な情報が得られます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：Chatwork のタスクとメッセージを管理する
+```yaml
+- id: send_message
+  tool: CHATWORK_SEND_MESSAGE
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+    - name: message
+      value: This is a test message from the Chatwork API!
+- id: get_messages
+  tool: CHATWORK_GET_MESSAGES
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+    - name: force
+      value: true
+- id: create_task
+  tool: CHATWORK_CREATE_TASK
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+    - name: body
+      value: Task with date string deadline
+    - name: to_ids
+      value: "6454321"
+    - name: limit
+      value: 2025/03/09
+    - name: limit_type
+      value: time
+- id: get_tasks
+  tool: CHATWORK_GET_TASKS
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+    - name: status
+      value: open
+- id: update_task_status
+  tool: CHATWORK_UPDATE_TASK_STATUS
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+    - name: task_id
+      value: "409281675"
+    - name: status
+      value: done
+- id: get_updated_tasks
+  tool: CHATWORK_GET_TASKS
+  config:
+    - name: token
+      value: "{{secrets.CHATWORK_API_TOKEN.api_token}}"
+  input:
+    - name: room_id
+      value: "123456"
+```

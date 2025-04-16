@@ -1,0 +1,60 @@
+---
+title: 'Shopify'
+description: 'Manage Shopify products and orders'
+icon: 'shopify'
+---
+
+
+## Overview
+The Shopify tools allow you to manage products and orders in your Shopify store. You can create, update, and delete products, as well as manage orders and inventory.
+
+## Key Features
+- `SHOPIFY_LIST_PRODUCTS`
+  - Retrieve a list of products from your Shopify store.
+- `SHOPIFY_CREATE_PRODUCT`
+  - Create a new product in your Shopify store.
+
+
+## Authentication
+
+To use the Shopify API, you need to create a private app in your Shopify store. This will provide you with the necessary credentials (API key and password) to authenticate your requests.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: List Products and Create a Product
+```yaml
+- name: Get Product List
+  id: list_products
+  tool: SHOPIFY_LIST_PRODUCTS
+  config:
+    - name: token
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
+  input:
+    - name: shop_domain
+      value: jinbaflow.myshopify.com
+    - name: limit
+      value: 5
+- name: Create New Product
+  id: create_product
+  tool: SHOPIFY_CREATE_PRODUCT
+  config:
+    - name: token
+      value: "{{secrets.SHOPIFY_API_TOKEN}}"
+    - name: api_version
+      value: 2025-01
+  input:
+    - name: shop_domain
+      value: gzb31e-yv.myshopify.com
+    - name: title
+      value: JinbaFlow Test Product
+    - name: description
+      value: This is a test product created from JinbaFlow.
+    - name: vendor
+      value: JinbaFlow
+    - name: product_type
+      value: Test
+    - name: status
+      value: DRAFT
+```

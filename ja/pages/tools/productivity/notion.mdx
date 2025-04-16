@@ -1,0 +1,73 @@
+---
+title: 'Notion'
+description: 'Notion ワークスペースを自動化する'
+icon: 'pen-to-square'
+---
+
+## 概要
+Notion ツールを使用すると、ページやデータベース、ブロックの作成・管理を含む Notion ワークスペースに関するさまざまなタスクを自動化できます。また、ページやデータベースから情報を抽出することも可能です。
+
+## 主な機能
+- `NOTION_CREATE_PAGE`
+  - 指定した Notion ワークスペースに新しいページを作成
+- `NOTION_CREATE_DATABASE_ITEM`
+  - 指定したデータベースに新しいアイテムを追加
+- `NOTION_RETRIEVE_A_PAGE`
+  - 指定したページを取得
+- `NOTION_RETRIEVE_DATABASE`
+  - 指定したデータベースを取得
+
+## 認証
+
+Notion API を使用するには、ワークスペースでインテグレーションを作成する必要があります。以下の手順に従ってください：
+
+1. [Notion Developers](https://www.notion.so/my-integrations) にアクセス
+2. 「New Integration」をクリック
+3. 必要事項を入力し、接続したいワークスペースを選択
+4. インテグレーション作成後、「Internal Integration Token」が発行されます。このトークンを使用して API リクエストを認証します。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：ページやデータベースの作成と取得
+```yaml
+- id: retrieve_page
+  tool: NOTION_RETRIEVE_A_PAGE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: page_id
+      value: 15cf9fcee23b81e193f7cb5774043b82
+- id: retrieve_database
+  tool: NOTION_RETRIEVE_DATABASE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: database_id
+      value: 16ff9fcee23b80d38b47d754dcaffe16
+- id: create_page
+  tool: NOTION_CREATE_PAGE
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: parent_page_id
+      value: 196bf44b5f624485a29f415bf4afac47
+    - name: title
+      value: Test Page
+    - name: content
+      value: This is a test page
+- id: create_database_item
+  tool: NOTION_CREATE_DATABASE_ITEM
+  config:
+    - name: token
+      value: "{{secrets.NOTION_TOKEN}}"
+  input:
+    - name: database_id
+      value: 16ff9fcee23b80d38b47d754dcaffe16
+    - name: title
+      value: Test Page
+    - name: content
+      value: This is a test page
+```

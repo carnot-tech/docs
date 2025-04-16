@@ -1,0 +1,40 @@
+---
+title: 'Python Sandbox'
+description: 'Run Python code in a sandboxed environment'
+icon: 'python'
+---
+
+
+## Overview
+You can run Python code in a sandboxed environment using the Python Sandbox tool. This tool allows you to execute Python code securely and perform advanced and flexible operations.
+
+## Key Features
+- `PYTHON_SANDBOX_RUN`
+  - This tool allows you to run Python code in a sandboxed environment.
+  - You can add additional packages or libraries in the configuration.
+
+
+### Example: Merge Step Results in Python
+```yaml
+- id: input1
+  name: Input 1
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: "1"
+- id: input2
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: "2"
+- id: merge
+  tool: PYTHON_SANDBOX_RUN
+  needs:
+    - input1
+    - input2
+  input:
+    - name: code
+      value: int("{{steps.input1.result}}") + int("{{steps.input2.result}}")
+    - name: data_type
+      value: NUMBER
+```

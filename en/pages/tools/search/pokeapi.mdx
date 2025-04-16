@@ -1,0 +1,40 @@
+---
+title: 'PokeAPI'
+description: 'Search for Pokemon data using PokeAPI'
+icon: 'bolt-lightning'
+---
+
+
+## Overview
+The PokeAPI tools allow you to search for Pokemon data, including information about specific Pokemon, their abilities, types, and more. These tools are designed to provide quick access to a wide range of Pokemon-related data.
+
+## Key Features
+- `POKEAPI_GET_POKEMON`
+  - Retrieve detailed information about a specific Pokemon by its ID or name.
+  - Access various attributes such as height, weight, abilities, and more.
+- `POKEAPI_GET_TYPE`
+  - Get information about a specific Pokemon type.
+  - Access details such as damage relations and effectiveness against other types.
+- `POKEAPI_GET_ABILITY`
+  - Retrieve information about a specific Pokemon ability.
+  - Access details such as effects and which Pokemon can have the ability.
+
+
+### Example: Run PokeAPI
+```yaml
+- id: get_pokemon
+  tool: POKEAPI_GET_POKEMON
+  input:
+    - name: id
+      value: "1"
+- id: get_type
+  tool: POKEAPI_GET_TYPE
+  input:
+    - name: id
+      value: "1"
+- id: get_ability
+  tool: POKEAPI_GET_ABILITY
+  input:
+    - name: id
+      value: "65"
+```

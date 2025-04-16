@@ -1,0 +1,27 @@
+---
+title: 'File Input'
+description: 'Fetch files from URLs'
+icon: 'file'
+---
+
+
+## Overview
+The File Input tools allow you to fetch files from specified URLs.
+
+## Key Features
+- `INPUT_PDF_FILE`: Fetch PDF files from URLs.
+- `INPUT_CSV_FILE`: Fetch CSV files from URLs.
+
+### Example: Fetch Files from URLs
+```yaml
+- id: "pdf"
+  tool: INPUT_PDF_FILE
+  input:
+    - name: value
+      value: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+- id: "1"
+  tool: INPUT_CSV_FILE
+  input:
+    - name: value
+      value: https://people.sc.fsu.edu/~jburkardt/data/csv/addresses.csv
+```

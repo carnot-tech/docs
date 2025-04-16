@@ -1,0 +1,48 @@
+---
+title: 'Jinba Flows'
+description: 'Run Jinba Flows'
+icon: 'cloud'
+---
+
+
+## Overview
+You can run Jinba Flows using the Jinba Flow tool. This tool allows you to execute flows that have been published on Jinba within another flow.
+
+## Key Features
+- `JINBA_FLOW_RUN`
+  - This tool allows you to run Jinba Flows by providing the flow ID and any necessary arguments.
+
+
+## Authentication
+
+After publishing a flow, you can note the flow URL and flow secret to send requests to the flow from this tool or from the web.
+
+**Note**: Treat API keys as sensitive information and never commit them to public repositories.
+
+### Example: Run Other Jinba Flows
+```yaml
+- name: Run flow
+  id: run_flow
+  tool: JINBA_FLOW_RUN
+  config:
+    - name: token
+      value: "{{secrets.JINBA_FLOW_TOKEN}}"
+    - name: base_url
+      value: "{{secrets.JINBA_FLOW_BASE_URL}}"
+  input:
+    - name: id
+      value: ecd528ac-fc53-44ad-8535-7051507e4958
+- name: Run flow with args
+  id: run_flow_with_args
+  tool: JINBA_FLOW_RUN
+  config:
+    - name: token
+      value: "{{secrets.JINBA_FLOW_TOKEN}}"
+    - name: base_url
+      value: "{{secrets.JINBA_FLOW_BASE_URL}}"
+  input:
+    - name: id
+      value: ecd528ac-fc53-44ad-8535-7051507e4958
+    - name: args
+      value: '[{"name":"input_1","value":"Hello, world!"}]'
+```
