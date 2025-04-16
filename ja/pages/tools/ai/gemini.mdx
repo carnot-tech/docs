@@ -1,0 +1,61 @@
+---
+title: 'Gemini'
+description: 'Gemini からの応答を呼び出す'
+icon: 'robot'
+---
+
+## 概要
+Gemini にプロンプトを送信したり、画像を送信して解析させたりできます。Gemini ツールは、構造化された応答を受け取るための手段も提供します。
+
+## 主な機能
+- `GEMINI_INVOKE`
+  - Gemini AI にプロンプトを送信
+- `GEMINI_INVOKE_WITH_IMAGE`
+  - Gemini AI に画像を送信して解析を実行
+
+## 認証
+
+API キーがない場合でも、Jinba の API クレジットを使用して Gemini ツールを実行できます。自身の API キーを使用したい場合は、[公式 Gemini サイト](https://ai.google.dev/gemini-api/docs/api-key)から取得できます。
+
+**注意**：API キーは機密情報として扱い、公開リポジトリにコミットしないでください。
+
+### 例：画像解析とスプレッドシート出力
+```yaml
+- id: analyze_image
+  name: analyze_image
+  tool: GEMINI_INVOKE_WITH_IMAGE
+  config:
+    - name: version
+      value: gemini-1.5-flash
+    - name: token
+      value: "{{secrets.GEMINI_API_KEY}}"
+  input:
+    - name: prompt
+      value: この画像を詳細に解析してください。テキストが含まれている場合は抽出してください。可能な限り詳細にお願いします。
+    - name: base64_image
+      value: YOUR_IMAGE_URL_OR_BASE64
+- id: structure_information
+  name: structure_information
+  tool: OPENAI_INVOKE
+  config:
+    - name: version
+      value: gpt-4
+  input:
+    - name: prompt
+      value: |
+        以下の画像解析結果を構造化された形式に整理してください。
+
+        ==画像解析結果==
+        {{steps.analyze_image.result.content}}
+
+        ==指示==
+        1. 重要な情報をカテゴリごとに抽出・整理してください
+        2. スプレッドシートに適した形式で整形してください
+        3. 以下の JSON 配列形式で出力してください：
+        [
+          ["カテゴリ", "項目", "内容"],
+          ["テキスト", "検出されたテキスト1", "..."],
+          ["オブジェクト", "検出されたオブジェクト1", "..."],
+          ...
+        ]
+```
