@@ -1,59 +1,36 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'SerpAPI'
+description: 'Search the web using SerpAPI'
+icon: 'searchengin'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+The SerpAPI tool allows you to search the web using SerpAPI's capabilities. It provides a simple interface to query the web and retrieve relevant information based on your input.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
+- `SERPAPI_SEARCH`
+  - Search for information on the web using a query string.
+  - Retrieve relevant results based on your input.
+  - Get answers to questions, summaries, and more.
 
 
 ## Authentication
 
+If you do not have a SerpAPI API key, you can still run SerpAPI tools by using Jinba API credit. If you'd like to use your own API key, you can obtain one from the [official SerpAPI website](https://serpapi.com/).
+
 **Note**: Treat API keys as sensitive information and never commit them to public repositories.
 
-### Example:
+### Example: Run SerpAPI Search
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
+- id: serpapi_search
+  tool: SERPAPI_SEARCH
   config:
-    - name: version
-      value: gemini-1.5-flash
     - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+      value: "{{secrets.SERPAPI_API_KEY}}"
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
-  config:
-    - name: version
-      value: gpt-4
-  input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: query
+      value: What is the capital of France?
+    - name: engine
+      value: google
 ```

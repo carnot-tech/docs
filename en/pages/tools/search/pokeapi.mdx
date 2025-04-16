@@ -1,59 +1,40 @@
 ---
-title: '[Module Name]'
-description: 'Description of the module'
+title: 'PokeAPI'
+description: 'Search for Pokemon data using PokeAPI'
+icon: 'bolt-lightning'
 ---
 
 
 ## Overview
-[Module Name] is a module that [concise explanation of main functionality and purpose].
+The PokeAPI tools allow you to search for Pokemon data, including information about specific Pokemon, their abilities, types, and more. These tools are designed to provide quick access to a wide range of Pokemon-related data.
 
 ## Key Features
-- Feature 1: [specific description]
-- Feature 2: [specific description]
-- Feature 3: [specific description]
+- `POKEAPI_GET_POKEMON`
+  - Retrieve detailed information about a specific Pokemon by its ID or name.
+  - Access various attributes such as height, weight, abilities, and more.
+- `POKEAPI_GET_TYPE`
+  - Get information about a specific Pokemon type.
+  - Access details such as damage relations and effectiveness against other types.
+- `POKEAPI_GET_ABILITY`
+  - Retrieve information about a specific Pokemon ability.
+  - Access details such as effects and which Pokemon can have the ability.
 
 
-## Authentication
-
-**Note**: Treat API keys as sensitive information and never commit them to public repositories.
-
-### Example:
+### Example: Run PokeAPI
 ```yaml
-- id: analyze_image
-  name: analyze_image
-  tool: GEMINI_INVOKE_WITH_IMAGE
-  config:
-    - name: version
-      value: gemini-1.5-flash
-    - name: token
-      value: "{{secrets.GEMINI_API_KEY}}"
+- id: get_pokemon
+  tool: POKEAPI_GET_POKEMON
   input:
-    - name: prompt
-      value: Please analyze this image in detail. If there is any text, extract it as well. Please provide as much detail as possible.
-    - name: base64_image
-      value: YOUR_IMAGE_URL_OR_BASE64
-- id: structure_information
-  name: structure_information
-  tool: OPENAI_INVOKE
-  config:
-    - name: version
-      value: gpt-4
+    - name: id
+      value: "1"
+- id: get_type
+  tool: POKEAPI_GET_TYPE
   input:
-    - name: prompt
-      value: |
-        Please organize the following image analysis results into a structured format.
-
-        ==Image Analysis Results==
-        {{steps.analyze_image.result.content}}
-
-        ==Instructions==
-        1. Extract and organize important information by category
-        2. Format the output suitable for spreadsheets
-        3. Output in the following JSON array format:
-        [
-          ["Category", "Item", "Content"],
-          ["Text", "Detected Text 1", "..."],
-          ["Object", "Detected Object 1", "..."],
-          ...
-        ]
+    - name: id
+      value: "1"
+- id: get_ability
+  tool: POKEAPI_GET_ABILITY
+  input:
+    - name: id
+      value: "65"
 ```
