@@ -1,0 +1,73 @@
+---
+title: "Model Context Protocol"
+description: "Learn how to set up your workspace MCP server."
+---
+
+
+# What is Model Context Protocol (MCP)?
+
+MCP is an open protocol that standardizes how applications provide context to LLMs. Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect your devices to various peripherals and accessories, MCP provides a standardized way to connect AI models to different data sources and tools.
+
+Read more [here.](https://modelcontextprotocol.io/introduction?utm_source=chatgpt.com)
+
+# Setting Up Your Workspace MCP server
+
+When you set up a flow, you can use tools beginning with `INPUT_` to set the inputs that your tool will have. For example,
+
+```yaml
+- id: word_1
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: DEFAULT_VALUE
+    - name: data_type
+      value: STRING
+- id: word_2
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: DEFAULT_VALUE
+    - name: data_type
+      value: STRING
+- id: concat
+  tool: PYTHON_SANDBOX_RUN
+  needs:
+    - word_1
+    - word_2
+  input:
+    - name: code
+      value: |
+
+        word_1 = steps.word_1.result.output
+        word_2 = steps.word_2.result.output
+
+        f"{word_1} {word_2}"
+    - name: data_type
+      value: STRING
+```
+
+The above flow would show the parameters `word_1` and `word_2` for the MCP tool. Please note that tool IDs, not names, are used to reference the tools in the flow. After you add these `INPUT_` tools, you can navigate to the MCP tab of your workspace to configure flows to be used for MCP, set prompts for the flows to describe what they do, and set the prompts for the parameters of your configured flows as well.
+
+# Connecting to LLM
+
+To connect your workspace MCP to an LLM, use the sample configuration found on the MCP tab of your workspace. Remember to replace the secret key! If you have no other MCP servers, you can paste the whole file, otherwise, you can add just the `jinbaflow` section to your file.
+
+Here is an example of a configuration file:
+
+```JSON
+{
+  "mcpServers": {
+    "jinbaflow": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway",
+        "--sse",
+        "https://api.jinba.io/api/v1/mcp/uuid-here-1234-5678-foobar/sse",
+        "--header",
+        "Authorization: Bearer YOUR_TOKEN"
+      ]
+    }
+  }
+}
+```

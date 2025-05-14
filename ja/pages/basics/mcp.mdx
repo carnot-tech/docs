@@ -1,0 +1,72 @@
+---
+title: "Model Context Protocol（MCP）"
+description: "ワークスペースのMCPサーバーの設定方法を学びましょう。"
+---
+
+# Model Context Protocol（MCP）とは？
+
+MCPは、アプリケーションがLLMにコンテキストを提供する方法を標準化するオープンなプロトコルです。MCPは、AIアプリケーションのためのUSB-Cポートのようなものです。USB-Cがさまざまなデバイスやアクセサリーへの接続方法を標準化しているのと同じように、MCPはAIモデルが異なるデータソースやツールに接続する方法を標準化します。
+
+詳しくは[こちら](https://modelcontextprotocol.io/introduction?utm_source=chatgpt.com)をご覧ください。
+
+# ワークスペースのMCPサーバーをセットアップする方法
+
+フローを作成する際、`INPUT_`で始まるツールを使って、あなたのツールが受け取る入力を設定できます。例えば以下のようになります。
+
+```yaml
+- id: word_1
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: DEFAULT_VALUE
+    - name: data_type
+      value: STRING
+- id: word_2
+  tool: INPUT_TEXT
+  input:
+    - name: value
+      value: DEFAULT_VALUE
+    - name: data_type
+      value: STRING
+- id: concat
+  tool: PYTHON_SANDBOX_RUN
+  needs:
+    - word_1
+    - word_2
+  input:
+    - name: code
+      value: |
+
+        word_1 = steps.word_1.result.output
+        word_2 = steps.word_2.result.output
+
+        f"{word_1} {word_2}"
+    - name: data_type
+      value: STRING
+```
+
+上記のフローは、MCPツールのパラメータとして`word_1`と`word_2`を表示します。フロー内では、ツール名ではなくツールのIDを使用して参照します。これらの`INPUT_`ツールを追加したら、ワークスペースのMCPタブに移動して、MCP用のフローを設定したり、各フローが行うことを説明するプロンプトを設定したり、各パラメータに対するプロンプトを設定できます。
+
+# LLMへの接続方法
+
+あなたのワークスペースのMCPをLLMに接続するには、ワークスペースのMCPタブにあるサンプル設定を使用します。シークレットキーを必ず置き換えてください！他にMCPサーバーがない場合は、ファイル全体を貼り付けても構いません。もし他にもMCPサーバーがある場合は、`jinbaflow`セクションのみをファイルに追加できます。
+
+以下は設定ファイルの例です。
+
+```JSON
+{
+  "mcpServers": {
+    "jinbaflow": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway",
+        "--sse",
+        "https://api.jinba.io/api/v1/mcp/uuid-here-1234-5678-foobar/sse",
+        "--header",
+        "Authorization: Bearer YOUR_TOKEN"
+      ]
+    }
+  }
+}
+```
